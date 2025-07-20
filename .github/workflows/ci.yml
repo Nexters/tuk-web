@@ -1,0 +1,87 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  install:
+    name: Install dependencies
+    runs-on: ubuntu-latest
+    outputs:
+      cache-hit: ${{ steps.yarn-cache.outputs.cache-hit }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Install deps
+        run: yarn install --immutable
+
+  build-tuk-ui:
+    name: Build Component Package (tuk-ui)
+    needs: install
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/tuk-ui
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install deps
+        run: yarn install --immutable
+      - name: Build
+        run: yarn build
+
+  build-tuk-web:
+    name: Build Next.js App (tuk-web)
+    needs: install
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/tuk-web
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install deps
+        run: yarn install --immutable
+      - name: Build
+        run: yarn build
+
+  build-tuk-webview:
+    name: Build Vite App (tuk-webview)
+    needs: install
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/tuk-webview
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install deps
+        run: yarn install --immutable
+      - name: Build
+        run: yarn build
