@@ -1,5 +1,11 @@
+import { Button } from 'tuk-ui';
+
 const App = () => {
-  return <div>App</div>;
+  return (
+    <div>
+      <Button>fsdfsdf</Button>
+    </div>
+  );
 };
 
 export default App;
