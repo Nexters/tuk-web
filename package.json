@@ -1,6 +1,9 @@
 {
   "name": "tuk",
   "packageManager": "yarn@4.9.2",
+  "engines": {
+    "node": "20.14.0"
+  },
   "private": true,
   "workspaces": [
     "apps/*",
