@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  build:
+    name: Install & Build All
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: 🧩 Install Git LFS
+        run: |
+          git lfs install
+          git lfs pull
+
+      - name: ⚙️ Enable Corepack
+        run: corepack enable
+
+      - name: 🟢 Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: 🧪 Lint (optional)
+        run: pnpm lint
+
+      - name: 🚀 Build all (Turbo)
+        run: pnpm build
