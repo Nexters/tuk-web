@@ -20,6 +20,10 @@ module.exports = {
           '16px',
           { fontWeight: 400, lineHeight: '20px', letterSpacing: '-0.03125rem' },
         ],
+        'body-16-M': [
+          '16px',
+          { fontWeight: 500, lineHeight: '20px', letterSpacing: '-0.03125rem' },
+        ],
         'body-14-M': [
           '14px',
           { fontWeight: 500, lineHeight: '20px', letterSpacing: '-0.03125rem' },
