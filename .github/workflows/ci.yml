@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  build:
+    name: Install & Build All
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Install Git LFS
+        run: |
+          git lfs install
+          git lfs pull
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build tuk-ui
+        run: yarn build
+        working-directory: packages/tuk-ui
+
+      - name: Build tuk-web
+        run: yarn build
+        working-directory: apps/tuk-web
+
+      - name: Build tuk-webview
+        run: yarn build
+        working-directory: apps/tuk-webview
