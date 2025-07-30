@@ -4,11 +4,11 @@ import * as React from 'react';
 import { cn } from '@/lib';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-[0.9375rem] text-body-16-M transition-colors disabled:pointer-events-none',
+  'inline-flex w-full items-center justify-center rounded-[0.9375rem] text-body-16-M transition-colors disabled:pointer-events-none',
   {
     variants: {
       variant: {
-        primary: 'bg-primary-950 text-white hover:bg-primary-800 disabled:bg-[#ccc]',
+        primary: 'bg-primary-500 text-white hover:bg-primary-600 disabled:bg-[#ccc]',
       },
       size: {
         md: 'p-4',
