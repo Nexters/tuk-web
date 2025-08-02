@@ -38,7 +38,7 @@ const InviteMeet = () => {
   }, []);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden overflow-y-auto bg-gradient-to-b from-white-default to-[#DCC8F8] px-5">
+    <div className="relative w-full overflow-hidden overflow-y-auto bg-gradient-to-b from-white-default to-[#DCC8F8] px-5">
       <GradientBackground />
 
       {showBanner && (
@@ -111,7 +111,7 @@ const InviteMeet = () => {
         </div>
       </div>
 
-      <div className="mt-[4.125rem] flex justify-center">
+      <div className="mt-[4.125rem] flex justify-center pb-[2.8125rem]">
         <TukLogo />
       </div>
 
