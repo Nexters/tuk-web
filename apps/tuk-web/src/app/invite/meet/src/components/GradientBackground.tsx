@@ -5,7 +5,7 @@ const GradientBackground = () => {
 
       <div className="pointer-events-none absolute left-[83px] top-[196px] h-[610px] w-[618px] rotate-[82deg] rounded-full bg-gradient-to-br from-[#DCC9F7] to-[#94C1D3] opacity-60 blur-[180px]" />
 
-      <div className="pointer-events-none absolute left-[61px] top-[542px] h-[449px] w-[423px] rotate-[82deg] rounded-full bg-gradient-to-br from-[#DCC8F8] to-white opacity-50 blur-[120px]" />
+      <div className="pointer-events-none absolute left-[61px] top-[542px] h-[449px] w-[423px] rotate-[82deg] rounded-full bg-gradient-to-br from-[#DCC8F8] to-white-default opacity-50 blur-[120px]" />
     </>
   );
 };

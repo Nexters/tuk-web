@@ -11,6 +11,7 @@ const BANNER_RESHOW_MINUTES = 30;
 
 const InviteMeet = () => {
   const [showBanner, setShowBanner] = useState(false);
+  const [animateCardIn, setAnimateCardIn] = useState(false);
 
   const handleCloseBanner = () => {
     localStorage.setItem(BANNER_KEY, Date.now().toString());
@@ -23,19 +24,21 @@ const InviteMeet = () => {
 
     if (!dismissedAt) {
       setShowBanner(true);
-      return;
+    } else {
+      const dismissedTime = parseInt(dismissedAt, 10);
+      const thirtyMinutes = BANNER_RESHOW_MINUTES * 60 * 1000;
+      if (now - dismissedTime > thirtyMinutes) {
+        setShowBanner(true);
+      }
     }
 
-    const dismissedTime = parseInt(dismissedAt, 10);
-    const thirtyMinutes = BANNER_RESHOW_MINUTES * 60 * 1000;
+    const timeout = setTimeout(() => setAnimateCardIn(true), 100);
 
-    if (now - dismissedTime > thirtyMinutes) {
-      setShowBanner(true);
-    }
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
-    <div className="relative h-screen w-full overflow-y-auto bg-gradient-to-b from-white-default to-[#DCC8F8] px-5">
+    <div className="relative w-full overflow-y-auto overflow-x-hidden bg-gradient-to-b from-white-default to-[#DCC8F8] px-5">
       <GradientBackground />
 
       {showBanner && (
@@ -46,7 +49,7 @@ const InviteMeet = () => {
             </button>
             <div className="flex gap-2.5">
               <div className="size-10 rounded-[0.3125rem] bg-gray-500" />
-              <p className="text-body-14-R">
+              <p className="pretendard-body-14-R">
                 앱을 다운받고 편하게 만남을
                 <br />
                 이어나가보세요
@@ -54,7 +57,7 @@ const InviteMeet = () => {
             </div>
           </div>
 
-          <div className="rounded-[1.25rem] bg-white-default px-2.5 py-2 text-body-12-B text-black-500">
+          <div className="pretendard-body-12-B rounded-[1.25rem] bg-white-default px-2.5 py-2 text-black-500">
             앱으로 열기
           </div>
         </div>
@@ -62,7 +65,7 @@ const InviteMeet = () => {
 
       <h2
         className={cn(
-          'text-title-22-M text-black-500',
+          'serif-title-22-M font-bold text-black-500',
           showBanner ? 'mt-[6.875rem]' : 'mt-[1.875rem]'
         )}
       >
@@ -72,29 +75,34 @@ const InviteMeet = () => {
       </h2>
 
       <div className="relative mt-12 flex justify-center">
-        <div className="relative h-[23.125rem] w-[16.25rem] rounded-[0.625rem] bg-[#f0f1f3] px-4 py-3">
+        <div
+          className={cn(
+            'relative h-[23.125rem] w-[16.25rem] rounded-[0.625rem] bg-[#f0f1f3] px-4 py-3 transition-all duration-700 ease-out',
+            animateCardIn ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+          )}
+        >
           <div className="flex justify-end">
-            <p className="text-body-14-R text-gray-800">
+            <p className="serif-body-14-R text-gray-800">
               다음 만남은 계획대로
               <br />
               되지 않아 친구들에게
             </p>
           </div>
 
-          <div className="mt-16">
+          <div className="mt-[4.375rem]">
             <QuoteIcon />
-            <div className="mt-6 flex flex-col gap-2">
-              <p className="text-body-16-M text-black-500">제주도 여행가서</p>
-              <p className="text-body-16-M text-black-500">새벽 4시까지</p>
-              <p className="text-body-16-M text-black-500">전생 이야기 나누기</p>
+            <div className="mt-[0.8125rem] flex flex-col gap-[0.3125rem]">
+              <p className="serif-body-16-M text-black-500">제주도 여행가서</p>
+              <p className="serif-body-16-M text-black-500">새벽 4시까지</p>
+              <p className="serif-body-16-M text-black-500">전생 이야기 나누기</p>
             </div>
 
-            <p className="mt-6 text-body-16-M text-black-500">어때</p>
+            <p className="serif-body-16-M mt-5 text-black-500">어때</p>
           </div>
 
           <div className="absolute bottom-0 left-0 flex w-full justify-between px-4 pb-4">
-            <p className="text-body-12-R text-[#cccccc]">연락이</p>
-            <p className="text-body-12-R text-[#cccccc]">뜸해진 우리</p>
+            <p className="serif-body-12-R text-[#cccccc]">연락이</p>
+            <p className="serif-body-12-R text-[#cccccc]">뜸해진 우리</p>
           </div>
         </div>
 
@@ -103,11 +111,11 @@ const InviteMeet = () => {
         </div>
       </div>
 
-      <div className="mt-[4.125rem] flex justify-center">
+      <div className="mt-[4.125rem] flex justify-center pb-[2.8125rem]">
         <TukLogo />
       </div>
 
-      <div className="fixed bottom-4 left-0 z-30 w-full px-4">
+      <div className="fixed bottom-0 left-0 z-30 w-full bg-gradient-to-b from-white-default/0 to-white-default px-5 py-6">
         <Button className="w-full">초대장 확인하기</Button>
       </div>
     </div>
