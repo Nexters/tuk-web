@@ -4,14 +4,14 @@
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('/fonts/Pretendard-Regular.oft') format('woff2');
+  src: url('/fonts/Pretendard-Regular.otf') format('woff2');
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('/fonts/Pretendard-Medium.oft') format('woff2');
+  src: url('/fonts/Pretendard-Medium.otf') format('woff2');
   font-weight: 500;
   font-display: swap;
 }
