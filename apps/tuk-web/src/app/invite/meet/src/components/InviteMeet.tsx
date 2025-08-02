@@ -11,6 +11,7 @@ const BANNER_RESHOW_MINUTES = 30;
 
 const InviteMeet = () => {
   const [showBanner, setShowBanner] = useState(false);
+  const [animateCardIn, setAnimateCardIn] = useState(false);
 
   const handleCloseBanner = () => {
     localStorage.setItem(BANNER_KEY, Date.now().toString());
@@ -23,15 +24,17 @@ const InviteMeet = () => {
 
     if (!dismissedAt) {
       setShowBanner(true);
-      return;
+    } else {
+      const dismissedTime = parseInt(dismissedAt, 10);
+      const thirtyMinutes = BANNER_RESHOW_MINUTES * 60 * 1000;
+      if (now - dismissedTime > thirtyMinutes) {
+        setShowBanner(true);
+      }
     }
 
-    const dismissedTime = parseInt(dismissedAt, 10);
-    const thirtyMinutes = BANNER_RESHOW_MINUTES * 60 * 1000;
-
-    if (now - dismissedTime > thirtyMinutes) {
-      setShowBanner(true);
-    }
+    // 애니메이션 트리거
+    const timeout = setTimeout(() => setAnimateCardIn(true), 100); // 약간의 delay
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
@@ -72,7 +75,12 @@ const InviteMeet = () => {
       </h2>
 
       <div className="relative mt-12 flex justify-center">
-        <div className="relative h-[23.125rem] w-[16.25rem] rounded-[0.625rem] bg-[#f0f1f3] px-4 py-3">
+        <div
+          className={cn(
+            'relative h-[23.125rem] w-[16.25rem] rounded-[0.625rem] bg-[#f0f1f3] px-4 py-3 transition-all duration-700 ease-out',
+            animateCardIn ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+          )}
+        >
           <div className="flex justify-end">
             <p className="text-body-14-R text-gray-800">
               다음 만남은 계획대로
