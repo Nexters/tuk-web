@@ -16,6 +16,10 @@ module.exports = {
           '24px',
           { fontWeight: 500, lineHeight: '30px', letterSpacing: '-0.09375rem' },
         ],
+        'title-22-M': [
+          '22px',
+          { fontWeight: 500, lineHeight: '30px', letterSpacing: '-0.09375rem' },
+        ],
         'body-16-R': [
           '16px',
           { fontWeight: 400, lineHeight: '20px', letterSpacing: '-0.03125rem' },
@@ -63,6 +67,17 @@ module.exports = {
           800: '#A50F0F',
           900: '#881414',
           950: '#4B0404',
+        },
+        white: {
+          default: '#ffffff',
+        },
+        black: {
+          default: '#000000',
+          500: '#1f1f1f',
+        },
+        gray: {
+          500: '#d9d9d9',
+          800: '#888888',
         },
       },
     },
