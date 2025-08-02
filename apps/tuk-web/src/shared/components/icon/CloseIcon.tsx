@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { IconProps } from '@/components/icon/types';
+import { IconProps } from '@/shared/components/icon/types';
 
 export const CloseIcon = React.forwardRef<SVGSVGElement, IconProps>(
   ({ color = 'currentColor', ...props }, forwardedRef) => {

@@ -4,14 +4,14 @@
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('/fonts/Pretendard-Regular.oft') format('woff2');
+  src: url('/fonts/Pretendard-Regular.otf') format('woff2');
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('/fonts/Pretendard-Medium.oft') format('woff2');
+  src: url('/fonts/Pretendard-Medium.otf') format('woff2');
   font-weight: 500;
   font-display: swap;
 }
@@ -60,6 +60,10 @@
 
   .pretendard-body-16-R {
     @apply font-pretendard text-[16px] font-normal leading-[20px] tracking-[-0.03125rem];
+  }
+
+  .pretendard-body-16-M {
+    @apply font-pretendard text-[16px] font-medium leading-[20px] tracking-[-0.03125rem];
   }
 
   .serif-body-12-R {

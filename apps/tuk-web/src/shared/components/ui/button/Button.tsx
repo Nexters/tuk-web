@@ -1,10 +1,10 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
-import { cn } from '@/lib';
+import { cn } from '@/shared/lib';
 
 const buttonVariants = cva(
-  'inline-flex w-full items-center justify-center rounded-[0.9375rem] text-body-16-M transition-colors disabled:pointer-events-none',
+  'pretendard-body-16-M inline-flex w-full items-center justify-center rounded-[0.9375rem] transition-colors disabled:pointer-events-none',
   {
     variants: {
       variant: {

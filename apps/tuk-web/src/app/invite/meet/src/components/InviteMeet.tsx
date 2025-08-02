@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react';
 
 import GradientBackground from '@/app/invite/meet/src/components/GradientBackground';
-import { Button, CloseIcon } from '@/components';
-import { cn } from '@/lib';
+import { Button } from '@/shared/components';
+import AppInstallBanner from '@/shared/components/AppInstallBanner';
+import { cn } from '@/shared/lib';
 
 const BANNER_KEY = 'invite-banner-dismissed-at';
 const BANNER_RESHOW_MINUTES = 30;
@@ -41,27 +42,7 @@ const InviteMeet = () => {
     <div className="relative w-full overflow-y-auto overflow-x-hidden bg-gradient-to-b from-white-default to-[#DCC8F8] px-5">
       <GradientBackground />
 
-      {showBanner && (
-        <div className="fixed left-0 top-0 z-20 flex h-20 w-full items-center justify-between bg-black-default p-5 text-white-default">
-          <div className="flex items-center gap-2">
-            <button onClick={handleCloseBanner}>
-              <CloseIcon />
-            </button>
-            <div className="flex gap-2.5">
-              <div className="size-10 rounded-[0.3125rem] bg-gray-500" />
-              <p className="pretendard-body-14-R">
-                앱을 다운받고 편하게 만남을
-                <br />
-                이어나가보세요
-              </p>
-            </div>
-          </div>
-
-          <div className="pretendard-body-12-B rounded-[1.25rem] bg-white-default px-2.5 py-2 text-black-500">
-            앱으로 열기
-          </div>
-        </div>
-      )}
+      <AppInstallBanner onClose={handleCloseBanner} />
 
       <h2
         className={cn(
@@ -124,7 +105,7 @@ const InviteMeet = () => {
 
 export default InviteMeet;
 
-const InviteCard = () => (
+export const InviteCard = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="348"
@@ -192,7 +173,7 @@ const InviteCard = () => (
   </svg>
 );
 
-const TukLogo = () => (
+export const TukLogo = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="154" height="76" viewBox="0 0 154 76" fill="none">
     <foreignObject x="-4" y="-4" width="162" height="84">
       <div
@@ -228,7 +209,7 @@ const TukLogo = () => (
   </svg>
 );
 
-const QuoteIcon = () => (
+export const QuoteIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="15" viewBox="0 0 18 15" fill="none">
     <path
       d="M5.53683 0C11.9395 0 10.1665 10.2041 0.0206388 15C2.08921 13.7755 4.55179 11.1224 4.6503 9.18367C4.35479 9.28571 3.96077 9.28571 3.66526 9.28571C1.20268 9.28571 -0.471878 7.2449 0.119142 4.69388C0.611659 2.04082 3.07424 0 5.53683 0Z"
