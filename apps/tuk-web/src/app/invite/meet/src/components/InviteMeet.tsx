@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import GradientBackground from '@/app/invite/meet/src/components/GradientBackground';
 import { Button, CloseIcon } from '@/components';
+import { cn } from '@/lib';
 
 const BANNER_KEY = 'invite-banner-dismissed-at';
 const BANNER_RESHOW_MINUTES = 30;
@@ -59,7 +60,12 @@ const InviteMeet = () => {
         </div>
       )}
 
-      <h2 className="mt-[6.875rem] text-title-22-M text-black-500">
+      <h2
+        className={cn(
+          'text-title-22-M text-black-500',
+          showBanner ? 'mt-[6.875rem]' : 'mt-[1.875rem]'
+        )}
+      >
         보고 싶은 마음이
         <br />
         도착했어요
@@ -97,7 +103,7 @@ const InviteMeet = () => {
         </div>
       </div>
 
-      <div className="mt-[4.125rem] flex justify-center">
+      <div className="mt-[4.125rem] flex justify-center pb-[9.0625rem]">
         <TukLogo />
       </div>
 
