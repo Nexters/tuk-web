@@ -35,7 +35,7 @@ const InviteMeet = () => {
   }, []);
 
   return (
-    <div className="relative h-screen w-full overflow-y-auto bg-gradient-to-b from-white-default to-[#DCC8F8] px-5">
+    <div className="relative h-screen w-full overflow-hidden overflow-y-auto bg-gradient-to-b from-white-default to-[#DCC8F8] px-5">
       <GradientBackground />
 
       {showBanner && (
