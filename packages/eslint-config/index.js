@@ -1,5 +1,3 @@
-// packages/eslint-config/index.js
-
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
@@ -8,7 +6,13 @@ module.exports = {
     sourceType: "module",
     ecmaFeatures: { jsx: true },
   },
-  plugins: ["@typescript-eslint", "react", "react-hooks", "import"],
+  plugins: [
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "import",
+    "tailwindcss",
+  ],
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -16,10 +20,14 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
+    "plugin:tailwindcss/recommended",
     "prettier",
   ],
   settings: {
     react: { version: "detect" },
+    tailwindcss: {
+      config: "tailwind.config.js",
+    },
   },
   env: {
     browser: true,
