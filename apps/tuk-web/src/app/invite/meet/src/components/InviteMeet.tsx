@@ -38,7 +38,7 @@ const InviteMeet = () => {
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden overflow-y-auto bg-gradient-to-b from-white-default to-[#DCC8F8] px-5">
+    <div className="relative w-full overflow-y-auto overflow-x-hidden bg-gradient-to-b from-white-default to-[#DCC8F8] px-5">
       <GradientBackground />
 
       {showBanner && (
@@ -115,7 +115,7 @@ const InviteMeet = () => {
         <TukLogo />
       </div>
 
-      <div className="fixed bottom-4 left-0 z-30 w-full px-4">
+      <div className="fixed bottom-0 left-0 z-30 w-full bg-gradient-to-b from-white-default/0 to-white-default px-5 py-6">
         <Button className="w-full">초대장 확인하기</Button>
       </div>
     </div>
