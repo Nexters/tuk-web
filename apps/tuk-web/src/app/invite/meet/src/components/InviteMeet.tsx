@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 
 import GradientBackground from '@/app/invite/meet/src/components/GradientBackground';
-import { Button, CloseIcon } from '@/components';
-import { cn } from '@/lib';
+import { Button, CloseIcon } from '@/shared/components';
+import { cn } from '@/shared/lib';
 
 const BANNER_KEY = 'invite-banner-dismissed-at';
 const BANNER_RESHOW_MINUTES = 30;

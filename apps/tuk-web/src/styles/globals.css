@@ -62,6 +62,10 @@
     @apply font-pretendard text-[16px] font-normal leading-[20px] tracking-[-0.03125rem];
   }
 
+  .pretendard-body-16-M {
+    @apply font-pretendard text-[16px] font-medium leading-[20px] tracking-[-0.03125rem];
+  }
+
   .serif-body-12-R {
     @apply font-noto text-[12px] font-normal leading-[18px] tracking-[-0.0625rem];
   }
