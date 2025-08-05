@@ -5,14 +5,20 @@ import { useState } from 'react';
 import ReceiveInviteList from '@/app/invite-list/src/components/ReceiveInviteList';
 import SendInviteList from '@/app/invite-list/src/components/SendInviteList';
 import { Header, Tabs, LeftArrowIcon } from '@/shared/components';
+import { useAppBridge } from '@/shared/components/provider/AppBridgeProvider';
+import { AppBridgeMessageType } from '@/shared/lib';
 
 const InviteList = () => {
   const [tab, setTab] = useState('sent');
 
+  const { send } = useAppBridge();
+
   return (
     <>
       <Header>
-        <Header.Left>
+        <Header.Left
+          onClick={() => send({ type: AppBridgeMessageType.NAVIGATE_DETAIL, payload: '' })}
+        >
           <Header.Button>
             <LeftArrowIcon />
           </Header.Button>
