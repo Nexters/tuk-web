@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { IconProps } from '@/shared/components/icon/types';
 
-export const CloseIcon = React.forwardRef<SVGSVGElement, IconProps>(
+export const CloseIcon24 = React.forwardRef<SVGSVGElement, IconProps>(
   ({ color = 'currentColor', ...props }, forwardedRef) => {
     return (
       <svg
@@ -22,4 +22,4 @@ export const CloseIcon = React.forwardRef<SVGSVGElement, IconProps>(
     );
   }
 );
-CloseIcon.displayName = 'CloseIcon';
+CloseIcon24.displayName = 'CloseIcon24';
