@@ -26,7 +26,11 @@ export const Tabs = ({
 };
 
 const TabsList = ({ children }: { children: ReactNode }) => {
-  return <div className="flex h-[3.375rem] gap-4 border-b border-gray-200 px-5">{children}</div>;
+  return (
+    <div className="sticky top-16 z-10 flex h-[3.375rem] gap-4 border-b border-gray-200 bg-white-default px-5">
+      {children}
+    </div>
+  );
 };
 
 interface TabsTriggerProps extends HTMLAttributes<HTMLButtonElement> {

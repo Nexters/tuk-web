@@ -4,7 +4,7 @@ import { cn } from '@/shared/lib';
 
 export const Header = ({ children }: PropsWithChildren) => {
   return (
-    <header className="flex h-16 items-center justify-between bg-white-default px-5 py-4">
+    <header className="sticky top-0 z-20 flex h-16 items-center justify-between bg-white-default px-5 py-4">
       {children}
     </header>
   );
