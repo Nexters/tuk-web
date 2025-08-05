@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 
-import { Header, Tabs } from '@/shared/components';
-import { LeftArrowIcon } from '@/shared/components/icon/LeftArrowIcon';
+import ReceiveInviteList from '@/app/invite-list/src/ReceiveInviteList';
+import SendInviteList from '@/app/invite-list/src/SendInviteList';
+import { Header, Tabs, LeftArrowIcon } from '@/shared/components';
 
 const InviteList = () => {
   const [tab, setTab] = useState('sent');
@@ -26,10 +27,10 @@ const InviteList = () => {
         </Tabs.List>
 
         <Tabs.Content value="sent">
-          <div>sdf</div>
+          <SendInviteList />
         </Tabs.Content>
         <Tabs.Content value="received">
-          <div>fsdf</div>
+          <ReceiveInviteList />
         </Tabs.Content>
       </Tabs>
     </>

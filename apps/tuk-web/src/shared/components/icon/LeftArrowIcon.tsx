@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-import { IconProps } from '@/shared/components/icon/types';
+import { IconProps } from '@/shared/components';
 
 export const LeftArrowIcon = React.forwardRef<SVGSVGElement, IconProps>(
   ({ color = 'currentColor', ...props }, forwardedRef) => {

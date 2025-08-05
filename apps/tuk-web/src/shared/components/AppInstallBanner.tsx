@@ -17,7 +17,7 @@ const AppInstallBanner = ({ onClose }: { onClose: () => void }) => {
         </div>
       </div>
 
-      <div className="pretendard-body-12-B rounded-[1.25rem] bg-white-default px-2.5 py-2 text-black-500">
+      <div className="pretendard-body-12-B rounded-[1.25rem] bg-white-default px-2.5 py-2 text-gray-900">
         앱으로 열기
       </div>
     </div>
