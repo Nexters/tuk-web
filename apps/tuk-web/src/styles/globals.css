@@ -99,3 +99,10 @@
 *::-webkit-scrollbar {
   display: none;
 }
+
+html,
+body {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: manipulation;
+}
