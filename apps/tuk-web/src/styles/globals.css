@@ -102,7 +102,7 @@
 
 html,
 body {
-  overscroll-behavior: none; /* Android: bounce 방지 */
-  -webkit-overflow-scrolling: touch; /* iOS 스크롤 부드럽게 */
-  touch-action: manipulation; /* 터치 반응 속도 개선 */
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: manipulation;
 }

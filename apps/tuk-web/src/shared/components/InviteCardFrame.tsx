@@ -1,12 +1,14 @@
 import { QuoteIcon } from '@/app/invite/meet/src/components/InviteMeet';
 import { cn } from '@/shared/lib';
 
-const InviteCardFrame = () => {
+const InviteCardFrame = ({ animateCardIn }: { animateCardIn?: boolean }) => {
+  const isAnimate = animateCardIn !== undefined;
+
   return (
     <div
       className={cn(
-        'relative h-[23.125rem] w-[16.25rem] rounded-[0.625rem] bg-[#f0f1f3] px-4 py-3 transition-all duration-700 ease-out'
-        // animateCardIn ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+        'relative h-[23.125rem] w-[16.25rem] rounded-[0.625rem] bg-[#f0f1f3] px-4 py-3 transition-all duration-700 ease-out',
+        isAnimate && (animateCardIn ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0')
       )}
     >
       <div className="flex justify-end">
