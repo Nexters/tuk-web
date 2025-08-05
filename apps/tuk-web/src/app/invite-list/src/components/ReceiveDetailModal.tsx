@@ -23,7 +23,7 @@ const InviteDetailModal = ({ onClose }: InviteDetailModalProps) => {
 
   return (
     <div className="fixed inset-0 z-50 bg-gradient-to-b from-white-default to-[#DCC8F8]">
-      <Header>
+      <Header className="bg-transparent">
         <Header.Left />
         <Header.Right>
           <Header.Button onClick={onClose}>
