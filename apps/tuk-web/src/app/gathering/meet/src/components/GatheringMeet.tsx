@@ -38,10 +38,10 @@ const GatheringMeet = () => {
     return () => clearTimeout(timeout);
   }, []);
   return (
-    <div className="relative h-screen w-full overflow-y-auto overflow-x-hidden bg-[#fafafa] px-5">
+    <div className="relative w-full overflow-y-auto overflow-x-hidden bg-[#fafafa] px-5">
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[706px] -translate-x-1/2 -translate-y-1/2 rotate-[-21deg] bg-gradient-to-b from-[#FFA098] to-[#FDD27C] opacity-60 blur-[100px]" />
 
-      <AppInstallBanner onClose={handleCloseBanner} />
+      {showBanner && <AppInstallBanner onClose={handleCloseBanner} />}
 
       <h2
         className={cn(
@@ -91,7 +91,7 @@ const GatheringMeet = () => {
         </div>
       </div>
 
-      <div className="mt-[4.125rem] flex justify-center pb-[2.8125rem]">
+      <div className="mt-[4.125rem] flex justify-center pb-[9.0625rem]">
         <TukLogo />
       </div>
 
