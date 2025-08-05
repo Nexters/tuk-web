@@ -13,8 +13,12 @@ const InviteDetailModal = ({ onClose }: InviteDetailModalProps) => {
 
   useEffect(() => {
     const timeout = setTimeout(() => setAnimateCardIn(true), 100);
+    document.body.style.overflow = 'hidden';
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      document.body.style.overflow = '';
+    };
   }, []);
 
   return (
