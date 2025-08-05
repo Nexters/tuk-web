@@ -1,10 +1,15 @@
-import { ButtonHTMLAttributes, HTMLAttributes, PropsWithChildren } from 'react';
+import { ButtonHTMLAttributes, HTMLAttributes } from 'react';
 
 import { cn } from '@/shared/lib';
 
-export const Header = ({ children }: PropsWithChildren) => {
+export const Header = ({ children, className }: HTMLAttributes<HTMLHeadElement>) => {
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center justify-between bg-white-default px-5 py-4">
+    <header
+      className={cn(
+        'sticky top-0 z-20 flex h-16 items-center justify-between bg-white-default px-5 py-4',
+        className
+      )}
+    >
       {children}
     </header>
   );
