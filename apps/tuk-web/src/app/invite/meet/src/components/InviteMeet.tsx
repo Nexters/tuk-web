@@ -42,7 +42,7 @@ const InviteMeet = () => {
     <div className="relative w-full overflow-y-auto overflow-x-hidden bg-gradient-to-b from-white-default to-[#DCC8F8] px-5">
       <GradientBackground />
 
-      <AppInstallBanner onClose={handleCloseBanner} />
+      {showBanner && <AppInstallBanner onClose={handleCloseBanner} />}
 
       <h2
         className={cn(
@@ -92,7 +92,7 @@ const InviteMeet = () => {
         </div>
       </div>
 
-      <div className="mt-[4.125rem] flex justify-center pb-[2.8125rem]">
+      <div className="mt-[4.125rem] flex justify-center pb-[9.0625rem]">
         <TukLogo />
       </div>
 

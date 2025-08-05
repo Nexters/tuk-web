@@ -90,3 +90,12 @@
     @apply font-noto text-[24px] font-medium leading-[33px] tracking-[-0.09375rem];
   }
 }
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
