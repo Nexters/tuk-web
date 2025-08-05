@@ -46,7 +46,7 @@ const InviteMeet = () => {
 
       <h2
         className={cn(
-          'serif-title-22-M font-bold text-black-500',
+          'serif-title-22-M font-bold text-gray-900',
           showBanner ? 'mt-[6.875rem]' : 'mt-[1.875rem]'
         )}
       >
@@ -73,17 +73,17 @@ const InviteMeet = () => {
           <div className="mt-[4.375rem]">
             <QuoteIcon />
             <div className="mt-[0.8125rem] flex flex-col gap-[0.3125rem]">
-              <p className="serif-body-16-M text-black-500">제주도 여행가서</p>
-              <p className="serif-body-16-M text-black-500">새벽 4시까지</p>
-              <p className="serif-body-16-M text-black-500">전생 이야기 나누기</p>
+              <p className="serif-body-16-M text-gray-900">제주도 여행가서</p>
+              <p className="serif-body-16-M text-gray-900">새벽 4시까지</p>
+              <p className="serif-body-16-M text-gray-900">전생 이야기 나누기</p>
             </div>
 
-            <p className="serif-body-16-M mt-5 text-black-500">어때</p>
+            <p className="serif-body-16-M mt-5 text-gray-900">어때</p>
           </div>
 
           <div className="absolute bottom-0 left-0 flex w-full justify-between px-4 pb-4">
-            <p className="serif-body-12-R text-[#cccccc]">연락이</p>
-            <p className="serif-body-12-R text-[#cccccc]">뜸해진 우리</p>
+            <p className="serif-body-12-R text-gray-500">연락이</p>
+            <p className="serif-body-12-R text-gray-500">뜸해진 우리</p>
           </div>
         </div>
 
