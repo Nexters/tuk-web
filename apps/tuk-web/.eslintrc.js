@@ -8,4 +8,7 @@ module.exports = {
       config: path.resolve(__dirname, './tailwind.config.js'),
     },
   },
+  rules: {
+    '@typescript-eslint/no-duplicate-enum-values': 'off',
+  },
 };
