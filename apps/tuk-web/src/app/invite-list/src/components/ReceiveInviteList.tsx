@@ -1,32 +1,43 @@
+import { useState } from 'react';
+
+import InviteDetailModal from '@/app/invite-list/src/components/ReceiveDetailModal';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
 
 const ReceiveInviteList = () => {
+  const [selectedInviteId, setSelectedInviteId] = useState<number | null>(null);
+
+  const openModal = () => setSelectedInviteId(1);
+  const closeModal = () => setSelectedInviteId(null);
+
   return (
-    <div className="mb-[6.25rem] mt-[1.875rem] flex flex-col justify-center gap-10">
-      <div className="flex flex-col items-center gap-12">
-        <div className="relative flex justify-center">
-          <InviteCardFrame />
+    <>
+      <div className="mb-[6.25rem] mt-[1.875rem] flex flex-col justify-center gap-10">
+        <div className="flex flex-col items-center gap-12">
+          <div className="relative flex justify-center" onClick={() => openModal()}>
+            <InviteCardFrame />
 
-          <div className="absolute left-1/2 top-12 -translate-x-1/2">
-            <GradientInviteCard />
+            <div className="absolute left-1/2 top-12 -translate-x-1/2">
+              <GradientInviteCard />
+            </div>
           </div>
+
+          <span className="pretendard-body-12-R text-gray-800">15분 전</span>
         </div>
 
-        <span className="pretendard-body-12-R text-gray-800">15분 전</span>
-      </div>
+        <div className="flex flex-col items-center gap-12">
+          <div className="relative flex justify-center">
+            <InviteCardFrame />
 
-      <div className="flex flex-col items-center gap-12">
-        <div className="relative flex justify-center">
-          <InviteCardFrame />
-
-          <div className="absolute left-1/2 top-12 -translate-x-1/2">
-            <GradientInviteCard />
+            <div className="absolute left-1/2 top-12 -translate-x-1/2">
+              <GradientInviteCard />
+            </div>
           </div>
-        </div>
 
-        <span className="pretendard-body-12-R text-gray-800">15분 전</span>
+          <span className="pretendard-body-12-R text-gray-800">15분 전</span>
+        </div>
       </div>
-    </div>
+      {selectedInviteId !== null && <InviteDetailModal onClose={closeModal} />}
+    </>
   );
 };
 

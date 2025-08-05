@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-import ReceiveInviteList from '@/app/invite-list/src/ReceiveInviteList';
-import SendInviteList from '@/app/invite-list/src/SendInviteList';
+import ReceiveInviteList from '@/app/invite-list/src/components/ReceiveInviteList';
+import SendInviteList from '@/app/invite-list/src/components/SendInviteList';
 import { Header, Tabs, LeftArrowIcon } from '@/shared/components';
 
 const InviteList = () => {
