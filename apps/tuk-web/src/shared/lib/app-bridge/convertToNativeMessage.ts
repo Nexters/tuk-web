@@ -1,15 +1,16 @@
 import { AppBridgeMessageType, AppBridgeMessage } from './appBridgeMessageType';
 
 const iosHandlers = {
-  [AppBridgeMessageType.NAVIGATE_DETAIL]: (message: string) =>
-    window.webkit?.messageHandlers.navigateDetail.postMessage(message),
+  [AppBridgeMessageType.NAVIGATE_GATHERING_DETAIL]: (message: string) =>
+    window.webkit?.messageHandlers.navigateGatheringDetail.postMessage(message),
   [AppBridgeMessageType.NAVIGATE_HOME]: (message: string) =>
     window.webkit?.messageHandlers.navigateHome.postMessage(message),
 };
 
 const androidHandlers = {
+  [AppBridgeMessageType.NAVIGATE_GATHERING_DETAIL]: () =>
+    window.AndroidBridge?.navigateGatheringDetail(),
   [AppBridgeMessageType.NAVIGATE_HOME]: () => window.AndroidBridge?.navigateHome(),
-  [AppBridgeMessageType.NAVIGATE_DETAIL]: () => window.AndroidBridge?.navigateDetail(),
 };
 
 export function convertToIOSAppBridge(message: AppBridgeMessage) {
