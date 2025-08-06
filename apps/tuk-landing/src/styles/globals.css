@@ -99,3 +99,18 @@
 *::-webkit-scrollbar {
   display: none;
 }
+
+@layer utilities {
+  .vh-screen {
+    height: calc(var(--vh, 1vh) * 100);
+  }
+
+  .vh-screen-plus-26 {
+    height: calc(calc(var(--vh, 1vh) * 100) + 26px);
+  }
+
+  .center-vertical {
+    top: calc(calc(var(--vh, 1vh) * 100 - 60px) / 2);
+    transform: translateY(-50%);
+  }
+}
