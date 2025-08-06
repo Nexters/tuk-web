@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { InviteCard } from '@/app/invite/meet/src/components/InviteMeet';
+import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteMeet';
 import { CloseIcon32, Header } from '@/shared/components';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
 

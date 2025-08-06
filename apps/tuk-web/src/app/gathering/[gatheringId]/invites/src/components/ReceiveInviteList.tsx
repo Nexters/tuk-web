@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { InviteCard } from '@/app/invite/meet/src/components/InviteMeet';
-import InviteDetailModal from '@/app/invite-list/src/components/ReceiveDetailModal';
+import InviteDetailModal from '@/app/gathering/[gatheringId]/invites/src/components/ReceiveDetailModal';
+import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteMeet';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
 
 const ReceiveInviteList = () => {
