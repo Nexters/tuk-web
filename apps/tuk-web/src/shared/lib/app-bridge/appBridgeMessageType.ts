@@ -1,12 +1,12 @@
 export enum AppBridgeMessageType {
-  NAVIGATE_DETAIL = 'navigateDetail',
+  NAVIGATE_GATHERING_DETAIL = 'navigateGatheringDetail',
   NAVIGATE_HOME = 'navigateHome',
 }
 
-export type AppBridgeMessage = NavigateDetailMessage | NavigateHomeMessage;
+export type AppBridgeMessage = NavigateGatheringDetailMessage | NavigateHomeMessage;
 
-export interface NavigateDetailMessage {
-  type: AppBridgeMessageType.NAVIGATE_DETAIL;
+export interface NavigateGatheringDetailMessage {
+  type: AppBridgeMessageType.NAVIGATE_GATHERING_DETAIL;
   payload: '';
 }
 

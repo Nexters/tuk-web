@@ -8,12 +8,12 @@ declare global {
   interface Window {
     webkit?: {
       messageHandlers: {
-        navigateDetail: MessageHandler<string>;
+        navigateGatheringDetail: MessageHandler<string>;
         navigateHome: MessageHandler<string>;
       };
     };
     AndroidBridge?: {
-      navigateDetail: () => void;
+      navigateGatheringDetail: () => void;
       navigateHome: () => void;
     };
   }
