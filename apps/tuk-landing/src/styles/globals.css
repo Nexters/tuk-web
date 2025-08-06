@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Regular.otf') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Medium.otf') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Bold.otf') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Serif KR';
+  src: url('/fonts/NotoSans-serif-Regular.otf') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Serif KR';
+  src: url('/fonts/NotoSans-serif-Medium.otf') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@layer utilities {
+  .pretendard-body-12-R {
+    @apply font-pretendard text-[12px] font-normal leading-[18px] tracking-[-0.03125rem];
+  }
+
+  .pretendard-body-12-M {
+    @apply font-pretendard text-[12px] font-medium leading-[18px] tracking-[-0.03125rem];
+  }
+
+  .pretendard-body-12-B {
+    @apply font-pretendard text-[12px] font-bold leading-[18px] tracking-[-0.03125rem];
+  }
+
+  .pretendard-body-14-R {
+    @apply font-pretendard text-[14px] font-normal leading-[20px] tracking-[-0.03125rem];
+  }
+
+  .pretendard-body-14-M {
+    @apply font-pretendard text-[14px] font-medium leading-[20px] tracking-[-0.03125rem];
+  }
+
+  .pretendard-body-16-R {
+    @apply font-pretendard text-[16px] font-normal leading-[20px] tracking-[-0.03125rem];
+  }
+
+  .pretendard-body-16-M {
+    @apply font-pretendard text-[16px] font-medium leading-[20px] tracking-[-0.03125rem];
+  }
+
+  .serif-body-12-R {
+    @apply font-noto text-[12px] font-normal leading-[18px] tracking-[-0.0625rem];
+  }
+
+  .serif-body-14-R {
+    @apply font-noto text-[14px] font-normal leading-[20px] tracking-[-0.0625rem];
+  }
+
+  .serif-body-16-M {
+    @apply font-noto text-[16px] font-medium leading-[22px] tracking-[-0.0625rem];
+  }
+
+  .serif-body-18-M {
+    @apply font-noto text-[18px] font-medium leading-[25px] tracking-[-0.0625rem];
+  }
+
+  .serif-title-22-M {
+    @apply font-noto text-[22px] font-medium leading-[30px] tracking-[-0.09375rem];
+  }
+
+  .serif-title-24-M {
+    @apply font-noto text-[24px] font-medium leading-[33px] tracking-[-0.09375rem];
+  }
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
