@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import GradientBackground from '@/app/invite/meet/src/components/GradientBackground';
+import GradientBackground from '@/app/invite/meet/[meetId]/src/components/GradientBackground';
 import { Button } from '@/shared/components';
 import AppInstallBanner from '@/shared/components/AppInstallBanner';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';

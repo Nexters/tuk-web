@@ -1,12 +1,12 @@
 'use client';
 
-import { InviteCard } from '@/app/invite/meet/src/components/InviteMeet';
+import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteMeet';
 import { Header, LeftArrowIcon } from '@/shared/components';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
 import { useAppBridge } from '@/shared/components/provider/AppBridgeProvider';
 import { AppBridgeMessageType } from '@/shared/lib';
 
-const ReceiveInvite = () => {
+const MyInviteList = () => {
   const { send } = useAppBridge();
 
   const isEmpty = false;
@@ -81,4 +81,4 @@ const ReceiveInvite = () => {
   );
 };
 
-export default ReceiveInvite;
+export default MyInviteList;

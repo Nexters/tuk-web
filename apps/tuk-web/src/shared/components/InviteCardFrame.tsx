@@ -1,4 +1,4 @@
-import { QuoteIcon } from '@/app/invite/meet/src/components/InviteMeet';
+import { QuoteIcon } from '@/app/invite/meet/[meetId]/src/components/InviteMeet';
 import { cn } from '@/shared/lib';
 
 const InviteCardFrame = ({ animateCardIn }: { animateCardIn?: boolean }) => {

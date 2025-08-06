@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 
-import ReceiveInviteList from '@/app/invite-list/src/components/ReceiveInviteList';
-import SendInviteList from '@/app/invite-list/src/components/SendInviteList';
+import ReceiveInviteList from '@/app/gathering/[gatheringId]/invites/src/components/ReceiveInviteList';
+import SendInviteList from '@/app/gathering/[gatheringId]/invites/src/components/SendInviteList';
 import { Header, Tabs, LeftArrowIcon } from '@/shared/components';
 import { useAppBridge } from '@/shared/components/provider/AppBridgeProvider';
 import { AppBridgeMessageType } from '@/shared/lib';
 
-const InviteList = () => {
+const GatheringInviteList = () => {
   const [tab, setTab] = useState('sent');
 
   const { send } = useAppBridge();
@@ -43,4 +43,4 @@ const InviteList = () => {
   );
 };
 
-export default InviteList;
+export default GatheringInviteList;

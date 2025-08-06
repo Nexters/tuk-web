@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { InviteCard, TukLogo } from '@/app/invite/meet/src/components/InviteMeet';
+import { InviteCard, TukLogo } from '@/app/invite/meet/[meetId]/src/components/InviteMeet';
 import { Button } from '@/shared/components';
 import AppInstallBanner from '@/shared/components/AppInstallBanner';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
@@ -11,7 +11,7 @@ import { cn } from '@/shared/lib';
 const BANNER_KEY = 'gathering-banner-dismissed-at';
 const BANNER_RESHOW_MINUTES = 30;
 
-const GatheringMeet = () => {
+const InviteGathering = () => {
   const [showBanner, setShowBanner] = useState(false);
   const [animateCardIn, setAnimateCardIn] = useState(false);
 
@@ -74,4 +74,4 @@ const GatheringMeet = () => {
   );
 };
 
-export default GatheringMeet;
+export default InviteGathering;
