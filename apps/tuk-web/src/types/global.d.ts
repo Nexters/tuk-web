@@ -9,10 +9,12 @@ declare global {
     webkit?: {
       messageHandlers: {
         navigateDetail: MessageHandler<string>;
+        navigateHome: MessageHandler<string>;
       };
     };
     AndroidBridge?: {
       navigateDetail: () => void;
+      navigateHome: () => void;
     };
   }
 }
