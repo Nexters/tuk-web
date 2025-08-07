@@ -50,8 +50,6 @@ const MainSection = () => {
           </div>
         </div>
       </div>
-
-      <div id="trigger-point" className="absolute bottom-0 h-px w-full" />
     </section>
   );
 };
