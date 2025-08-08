@@ -3,10 +3,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { useSequentialFadeIn } from '@/app/(home)/src/components/useSequentialFadeIn';
+import { cn } from '@/shared/lib';
+
 const MainSection = () => {
+  const { ref, activeIndex } = useSequentialFadeIn(2, 300);
+
   return (
     <section
       id="thumbnail"
+      ref={ref}
       className="fixed left-0 top-0 z-[-1] h-[calc(var(--vh,1vh)*100)] w-full"
     >
       <div className="absolute inset-0 z-0">
@@ -21,7 +27,12 @@ const MainSection = () => {
       </div>
 
       <div className="relative z-10 m-auto h-full max-w-screen-xl overflow-hidden px-[70px] max-[1280px]:max-w-[55rem] max-[1280px]:px-6 max-[880px]:flex max-[880px]:flex-col max-[880px]:items-center max-[880px]:justify-end max-[880px]:pb-[1.625rem]">
-        <div className="center-vertical absolute max-[880px]:relative max-[880px]:top-auto max-[880px]:mb-6 max-[880px]:translate-y-0 max-[880px]:text-center">
+        <div
+          className={cn(
+            'center-vertical absolute opacity-0 max-[880px]:relative max-[880px]:top-auto max-[880px]:mb-6 max-[880px]:translate-y-0 max-[880px]:text-center',
+            activeIndex >= 0 && 'animate-fade-up-center'
+          )}
+        >
           <div className="mb-6 text-[22px] font-medium text-white-default max-[880px]:mb-3 max-[880px]:text-lg">
             단톡방은 살아있지만, 모임은 사라진 사이에게
           </div>
@@ -31,7 +42,12 @@ const MainSection = () => {
           </h1>
         </div>
 
-        <div className="absolute bottom-[130px] max-[880px]:relative max-[880px]:bottom-auto">
+        <div
+          className={cn(
+            'absolute bottom-[130px] opacity-0 max-[880px]:relative max-[880px]:bottom-auto',
+            activeIndex >= 1 && 'animate-fade-up'
+          )}
+        >
           <div className="flex gap-3 max-[880px]:hidden">
             <Link
               href="/"
