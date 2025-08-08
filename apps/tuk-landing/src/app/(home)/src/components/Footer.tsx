@@ -29,7 +29,7 @@ const Footer = () => {
     <section ref={footerRef}>
       <div className="relative w-full">
         <Image
-          src="/footer-bg.jpg"
+          src="/footer-bg.webp"
           alt="footer background"
           fill
           priority
@@ -53,14 +53,14 @@ const Footer = () => {
               href="/"
               className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
             >
-              <Image src="/app-store.png" alt="appStoreImg" width={24} height={24} />
+              <Image src="/app-store.webp" alt="appStoreImg" width={24} height={24} />
               App Store
             </Link>
             <Link
               href="/"
               className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
             >
-              <Image src="/play-store.png" alt="playStoreImg" width={24} height={24} />
+              <Image src="/play-store.webp" alt="playStoreImg" width={24} height={24} />
               Google Play
             </Link>
           </div>
@@ -82,12 +82,12 @@ const Footer = () => {
           <ul className="flex gap-2">
             <li className="size-8">
               <Link href="/">
-                <Image src="/insta.png" alt="instaImg" width={32} height={32} />
+                <Image src="/insta.webp" alt="instaImg" width={32} height={32} />
               </Link>
             </li>
             <li className="size-8">
               <Link href="/">
-                <Image src="/kakao.png" alt="kakaoImg" width={32} height={32} />
+                <Image src="/kakao.webp" alt="kakaoImg" width={32} height={32} />
               </Link>
             </li>
           </ul>

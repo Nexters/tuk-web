@@ -11,7 +11,7 @@ const MainSection = () => {
     >
       <div className="absolute inset-0 z-0">
         <Image
-          src="/main-bg.jpg"
+          src="/main-bg.webp"
           alt="Main Background"
           fill
           priority
@@ -37,14 +37,14 @@ const MainSection = () => {
               href="/"
               className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
             >
-              <Image src="/app-store.png" alt="App Store" width={24} height={24} />
+              <Image src="/app-store.webp" alt="App Store" width={24} height={24} priority />
               App Store
             </Link>
             <Link
               href="/"
               className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
             >
-              <Image src="/play-store.png" alt="Google Play" width={24} height={24} />
+              <Image src="/play-store.webp" alt="Google Play" width={24} height={24} priority />
               Google Play
             </Link>
           </div>

@@ -29,7 +29,7 @@ const ServiceInfoSection = () => {
 
               <div className="relative aspect-[554/714] w-[554px] max-[1280px]:w-[464px] max-[880px]:mt-10 max-[880px]:w-[296px]">
                 <Image
-                  src="/service-capture-1.png"
+                  src="/service-capture-1.webp"
                   alt="serviceCapture1"
                   fill
                   sizes="(max-width: 880px) 296px, (max-width: 1280px) 464px, 554px"
@@ -73,7 +73,7 @@ const ServiceInfoSection = () => {
             </div>
             <div className="relative mb-[200px] mt-10 aspect-[554/714] w-[554px] max-[1280px]:w-[464px] max-[880px]:mt-10 max-[880px]:w-[296px]">
               <Image
-                src="/mockup-1.png"
+                src="/mockup-1.webp"
                 alt="mockup1"
                 fill
                 sizes="(max-width: 880px) 296px, (max-width: 1280px) 464px, 554px"
@@ -91,7 +91,7 @@ const ServiceInfoSection = () => {
             </div>
             <div className="relative mb-[200px] mt-10 aspect-[554/714] w-[554px] max-[1280px]:w-[464px] max-[880px]:mt-10 max-[880px]:w-[296px]">
               <Image
-                src="/mockup-2.png"
+                src="/mockup-2.webp"
                 alt="mockup2"
                 fill
                 sizes="(max-width: 880px) 296px, (max-width: 1280px) 464px, 554px"
@@ -115,7 +115,7 @@ const ServiceInfoSection = () => {
             </div>
             <div className="relative mb-[200px] mt-10 aspect-[554/714] w-[554px] max-[1280px]:w-[464px] max-[880px]:mt-10 max-[880px]:w-[296px]">
               <Image
-                src="/mockup-3.png"
+                src="/mockup-3.webp"
                 alt="mockup3"
                 fill
                 sizes="(max-width: 880px) 296px, (max-width: 1280px) 464px, 554px"
@@ -133,7 +133,7 @@ const ServiceInfoSection = () => {
             </div>
             <div className="relative mb-[200px] mt-10 aspect-[554/714] w-[554px] max-[1280px]:w-[464px] max-[880px]:mt-10 max-[880px]:w-[296px]">
               <Image
-                src="/mockup-4.png"
+                src="/mockup-4.webp"
                 alt="mockup4"
                 fill
                 sizes="(max-width: 880px) 296px, (max-width: 1280px) 464px, 554px"
@@ -192,7 +192,7 @@ const ServiceInfoSection = () => {
               </div>
               <div className="relative mb-[200px] aspect-[554/714] max-[880px]:mt-10 max-[880px]:w-[296px]">
                 <Image
-                  src="/mockup-1.png"
+                  src="/mockup-1.webp"
                   alt="mockup1"
                   fill
                   sizes="(max-width: 880px) 296px, (max-width: 1280px) 464px, 554px"
@@ -210,7 +210,7 @@ const ServiceInfoSection = () => {
               </div>
               <div className="relative mb-[200px] aspect-[554/714] max-[880px]:mt-10 max-[880px]:w-[296px]">
                 <Image
-                  src="/mockup-2.png"
+                  src="/mockup-2.webp"
                   alt="mockup2"
                   fill
                   sizes="(max-width: 880px) 296px, (max-width: 1280px) 464px, 554px"
@@ -251,7 +251,7 @@ const ServiceInfoSection = () => {
               </div>
               <div className="relative mb-[200px] aspect-[554/714] max-[880px]:mt-10 max-[880px]:w-[296px]">
                 <Image
-                  src="/mockup-3.png"
+                  src="/mockup-3.webp"
                   alt="mockup3"
                   fill
                   sizes="(max-width: 880px) 296px, (max-width: 1280px) 464px, 554px"
@@ -269,7 +269,7 @@ const ServiceInfoSection = () => {
               </div>
               <div className="relative mb-[200px] aspect-[554/714] max-[880px]:mt-10 max-[880px]:w-[296px]">
                 <Image
-                  src="/mockup-4.png"
+                  src="/mockup-4.webp"
                   alt="mockup4"
                   fill
                   sizes="(max-width: 880px) 296px, (max-width: 1280px) 464px, 554px"
