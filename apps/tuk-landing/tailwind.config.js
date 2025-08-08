@@ -39,6 +39,20 @@ module.exports = {
           900: '#1F1F1F',
         },
       },
+      keyframes: {
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(100px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'fade-up-center': {
+          '0%': { opacity: '0', transform: 'translateY(-30%)' },
+          '100%': { opacity: '1', transform: 'translateY(-50%)' },
+        },
+      },
+      animation: {
+        'fade-up': 'fade-up 1s ease-out forwards',
+        'fade-up-center': 'fade-up-center 1s ease-out forwards',
+      },
     },
   },
   plugins: [],
