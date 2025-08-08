@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -5,13 +7,20 @@ const MainSection = () => {
   return (
     <section
       id="thumbnail"
-      className="fixed left-0 top-0 z-[-1] h-[calc(calc(var(--vh,1vh)*100)+26px)] w-full bg-cover bg-center bg-no-repeat opacity-90 transition-[background-image] duration-100"
-      style={{
-        backgroundImage:
-          'linear-gradient(0deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.2) 100%), url(/main-bg.jpg)',
-      }}
+      className="fixed left-0 top-0 z-[-1] h-[calc(var(--vh,1vh)*100)] w-full"
     >
-      <div className="relative m-auto h-full max-w-screen-xl overflow-hidden px-[70px] max-[1280px]:max-w-[55rem] max-[1280px]:px-6 max-[880px]:flex max-[880px]:flex-col max-[880px]:items-center max-[880px]:justify-end max-[880px]:pb-[1.625rem]">
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/main-bg.jpg"
+          alt="Main Background"
+          fill
+          priority
+          quality={100}
+          className="object-cover object-center opacity-90"
+        />
+      </div>
+
+      <div className="relative z-10 m-auto h-full max-w-screen-xl overflow-hidden px-[70px] max-[1280px]:max-w-[55rem] max-[1280px]:px-6 max-[880px]:flex max-[880px]:flex-col max-[880px]:items-center max-[880px]:justify-end max-[880px]:pb-[1.625rem]">
         <div className="center-vertical absolute max-[880px]:relative max-[880px]:top-auto max-[880px]:mb-6 max-[880px]:translate-y-0 max-[880px]:text-center">
           <div className="mb-6 text-[22px] font-medium text-white-default max-[880px]:mb-3 max-[880px]:text-lg">
             단톡방은 살아있지만, 모임은 사라진 사이에게
@@ -26,16 +35,16 @@ const MainSection = () => {
           <div className="flex gap-3 max-[880px]:hidden">
             <Link
               href="/"
-              className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-solid border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
+              className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
             >
-              <Image src="/app-store.png" alt="appStoreImg" width={24} height={24} />
+              <Image src="/app-store.png" alt="App Store" width={24} height={24} />
               App Store
             </Link>
             <Link
               href="/"
-              className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-solid border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
+              className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
             >
-              <Image src="/play-store.png" alt="playStoreImg" width={24} height={24} />
+              <Image src="/play-store.png" alt="Google Play" width={24} height={24} />
               Google Play
             </Link>
           </div>

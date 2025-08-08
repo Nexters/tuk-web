@@ -118,3 +118,7 @@
     transform: translateY(-50%);
   }
 }
+
+:root {
+  --vh: 1vh;
+}

@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from 'react';
 
 const Footer = () => {
   const footerRef = useRef<HTMLDivElement | null>(null);
-
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
@@ -28,14 +27,18 @@ const Footer = () => {
 
   return (
     <section ref={footerRef}>
-      <div
-        className="w-full bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage:
-            'linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.7) 100%), url(/footer-bg.jpg)',
-        }}
-      >
-        <div className="m-auto max-w-screen-xl overflow-hidden px-[70px] pb-[162px] pt-[180px] max-[1280px]:max-w-[880px] max-[1280px]:px-6 max-[1280px]:pb-[172px] max-[1280px]:pt-[208px] max-[880px]:flex max-[880px]:flex-col max-[880px]:items-center max-[880px]:pb-[70px] max-[880px]:pt-[72px]">
+      <div className="relative w-full">
+        <Image
+          src="/footer-bg.jpg"
+          alt="footer background"
+          fill
+          priority
+          quality={100}
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-black-default/70" />
+
+        <div className="relative z-10 m-auto max-w-screen-xl overflow-hidden px-[70px] pb-[162px] pt-[180px] max-[1280px]:max-w-[880px] max-[1280px]:px-6 max-[1280px]:pb-[172px] max-[1280px]:pt-[208px] max-[880px]:flex max-[880px]:flex-col max-[880px]:items-center max-[880px]:pb-[70px] max-[880px]:pt-[72px]">
           <h2 className="text-[48px] font-bold text-white-default max-[1280px]:text-[40px] max-[880px]:text-center max-[880px]:text-[36px]">
             우리의 만남을 위해
             <br /> TUK
@@ -48,14 +51,14 @@ const Footer = () => {
           <div className="flex gap-3 max-[880px]:hidden">
             <Link
               href="/"
-              className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-solid border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
+              className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
             >
               <Image src="/app-store.png" alt="appStoreImg" width={24} height={24} />
               App Store
             </Link>
             <Link
               href="/"
-              className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-solid border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
+              className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
             >
               <Image src="/play-store.png" alt="playStoreImg" width={24} height={24} />
               Google Play
