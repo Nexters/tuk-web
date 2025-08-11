@@ -1,48 +1,48 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { AxiosRequestConfig } from 'axios';
+import { z } from 'zod';
 
-import { APIError } from './error';
+export type ApiMeta = {
+  errorType?: string;
+  errorMessage?: string;
+};
 
-export type HttpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
+export type ApiEnvelope<T> = {
+  success: boolean;
+  data: T;
+  meta?: ApiMeta;
+};
 
-export interface URLProps {
-  [p: string]: string | number | undefined;
+export class APIError extends Error {
+  public status?: number;
+  public meta?: ApiMeta;
+  public url?: string;
+  public method?: string;
+
+  constructor(
+    message: string,
+    opts?: { status?: number; meta?: ApiMeta; url?: string; method?: string }
+  ) {
+    super(message);
+    this.name = 'APIError';
+    this.status = opts?.status;
+    this.meta = opts?.meta;
+    this.url = opts?.url;
+    this.method = opts?.method;
+  }
 }
 
-export interface APIProps<T extends (response: any) => any | Promise<any>> {
-  url?: string | number | null;
-  config?: AxiosRequestConfig;
-  param?: string | number | { [key: string]: string | number };
-  query?: URLProps;
-  data?: any;
-  validate?: T;
-}
-
-export type SetAPIErrorCallback = <T extends Error>(error: APIError) => T;
-
-export interface RestAPIInstanceConfig extends AxiosRequestConfig {
-  setAPIError?: SetAPIErrorCallback;
-  legacy?: boolean;
-}
-
-export type ResponsePipe = (response: any) => any;
-
-export interface RestAPIConfig extends AxiosRequestConfig {
-  responsePipe?: ResponsePipe;
-}
-
-type RestMethod = <T extends (response: any) => any>(props: APIProps<T>) => Promise<ReturnType<T>>;
-
-export interface RestAPIProtocol {
-  fetch: <T extends (response: any) => any>(
-    method: HttpMethod,
-    props: APIProps<T>
-  ) => Promise<ReturnType<T>>;
-  get: RestMethod;
-  post: RestMethod;
-  patch: RestMethod;
-  put: RestMethod;
-  delete: RestMethod;
+export function wrapZodError(err: unknown, url?: string, method?: string): never {
+  if (err instanceof z.ZodError) {
+    const issues = err.issues
+      .map(i => `${i.path.join('.') || '(root)'}: ${i.message}`)
+      .join('\n - ');
+    const msg = `Zod validation failed:\n - ${issues}`;
+    throw new APIError(msg, {
+      meta: { errorType: 'ZOD_ERROR', errorMessage: msg },
+      url,
+      method,
+    });
+  }
+  throw err;
 }
 
 export type PaginationQuery = {
