@@ -1,3 +1,4 @@
+import { ProposalPageResponse } from '@/app/gathering/[gatheringId]/invites/src/service/schema/get-gathering-proposals.schema';
 import { RestAPIProtocol } from '@/shared/lib/api/rest/types';
 import { PaginationQuery } from '@/shared/lib/api/types';
 
@@ -14,6 +15,7 @@ export class GatheringAPIService {
       query: {
         ...page,
       },
+      validate: ProposalPageResponse.parse,
     });
   }
 }
