@@ -1,56 +1,64 @@
-import { useState } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import Link from 'next/link';
+import { useMemo } from 'react';
 
-import InviteDetailModal from '@/app/gathering/[gatheringId]/invites/src/components/ReceiveDetailModal';
+import { gatheringAPIService } from '@/app/gathering/[gatheringId]/invites/src/service';
 import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteMeet';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
+import { useIntersectionObserver } from '@/shared/hooks/useIntersectionObserver';
+import { useParam } from '@/shared/hooks/useParam';
 
 const ReceiveInviteList = () => {
-  const [selectedInviteId, setSelectedInviteId] = useState<number | null>(null);
+  const gatheringId = Number(useParam('gatheringId'));
 
-  const openModal = () => setSelectedInviteId(1);
-  const closeModal = () => setSelectedInviteId(null);
+  const { data, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+    queryKey: ['getGatheringProposals', gatheringId, 'RECEIVED'],
+    initialPageParam: 1,
+    queryFn: ({ pageParam = 1 }) =>
+      gatheringAPIService.getGatheringProposals(gatheringId, 'RECEIVED', {
+        pageNumber: pageParam,
+        pageSize: 10,
+      }),
+    getNextPageParam: lastPage => {
+      const { hasNext, pageNumber } = lastPage.data;
+      return hasNext ? pageNumber + 1 : undefined;
+    },
+  });
+
+  const proposals = useMemo(() => data?.pages.flatMap(p => p.data.content) ?? [], [data]);
+
+  const { targetRef } = useIntersectionObserver({
+    enabled: hasNextPage && !isFetchingNextPage,
+    onIntersect: () => fetchNextPage(),
+    rootMargin: '200px 0px',
+  });
 
   return (
-    <>
-      <div className="mb-[6.25rem] mt-[1.875rem] flex flex-col justify-center gap-10">
-        <div className="flex flex-col items-center gap-12">
-          <div className="relative flex justify-center" onClick={() => openModal()}>
-            <InviteCardFrame />
-
-            <div className="absolute left-1/2 top-12 -translate-x-1/2">
-              <InviteCard />
-            </div>
-          </div>
-
-          <span className="pretendard-body-12-R text-gray-800">15분 전</span>
+    <div className="mb-[6.25rem] mt-[1.875rem] flex flex-col justify-center gap-10">
+      {proposals.length === 0 ? (
+        <div className="flex h-[16.25rem] items-center justify-center">
+          <span className="pretendard-body-14-R text-gray-800">받은 초대장이 아직 없어요</span>
         </div>
+      ) : (
+        proposals.map(proposal => (
+          <div className="flex flex-col items-center gap-12" key={proposal.proposalId}>
+            <Link href={`/gathering/${gatheringId}/invites/${proposal.proposalId}`}>
+              <div className="relative flex justify-center">
+                <InviteCardFrame />
 
-        <div className="flex flex-col items-center gap-12">
-          <div className="relative flex justify-center" onClick={() => openModal()}>
-            <InviteCardFrame />
+                <div className="absolute left-1/2 top-12 -translate-x-1/2">
+                  <InviteCard />
+                </div>
+              </div>
+            </Link>
 
-            <div className="absolute left-1/2 top-12 -translate-x-1/2">
-              <InviteCard />
-            </div>
+            <span className="pretendard-body-12-R text-gray-800">{proposal.relativeTime}</span>
           </div>
+        ))
+      )}
 
-          <span className="pretendard-body-12-R text-gray-800">15분 전</span>
-        </div>
-
-        <div className="flex flex-col items-center gap-12">
-          <div className="relative flex justify-center" onClick={() => openModal()}>
-            <InviteCardFrame />
-
-            <div className="absolute left-1/2 top-12 -translate-x-1/2">
-              <InviteCard />
-            </div>
-          </div>
-
-          <span className="pretendard-body-12-R text-gray-800">15분 전</span>
-        </div>
-      </div>
-      {selectedInviteId !== null && <InviteDetailModal onClose={closeModal} />}
-    </>
+      <div ref={targetRef} className="h-1" />
+    </div>
   );
 };
 

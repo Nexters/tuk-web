@@ -5,12 +5,15 @@ const iosHandlers = {
     window.webkit?.messageHandlers.navigateGatheringDetail.postMessage(message),
   [AppBridgeMessageType.NAVIGATE_HOME]: (message: string) =>
     window.webkit?.messageHandlers.navigateHome.postMessage(message),
+  [AppBridgeMessageType.REQUEST_TOKEN_REFRESH]: (message: string) =>
+    window.webkit?.messageHandlers.requestTokenRefresh.postMessage(message),
 };
 
 const androidHandlers = {
   [AppBridgeMessageType.NAVIGATE_GATHERING_DETAIL]: () =>
     window.AndroidBridge?.navigateGatheringDetail(),
   [AppBridgeMessageType.NAVIGATE_HOME]: () => window.AndroidBridge?.navigateHome(),
+  [AppBridgeMessageType.REQUEST_TOKEN_REFRESH]: () => window.AndroidBridge?.requestTokenRefresh(),
 };
 
 export function convertToIOSAppBridge(message: AppBridgeMessage) {
