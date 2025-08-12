@@ -13,6 +13,8 @@ const state: RefreshState = {
 export function requestTokenRefresh(trigger: () => void, timeoutMs?: number) {
   if (state.refreshing && state.promise) return state.promise;
 
+  sessionStorage.removeItem('accessToken');
+
   state.refreshing = true;
   trigger();
 
