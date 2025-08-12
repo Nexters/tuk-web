@@ -1,23 +1,23 @@
+'use client';
+
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteMeet';
 import { CloseIcon32, Header } from '@/shared/components';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
+import { useParam } from '@/shared/hooks/useParam';
 
-interface InviteDetailModalProps {
-  onClose: () => void;
-}
+const GatheringProposal = () => {
+  const gatheringId = Number(useParam('gatheringId'));
 
-const InviteDetailModal = ({ onClose }: InviteDetailModalProps) => {
   const [animateCardIn, setAnimateCardIn] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => setAnimateCardIn(true), 100);
-    document.body.style.overflow = 'hidden';
 
     return () => {
       clearTimeout(timeout);
-      document.body.style.overflow = '';
     };
   }, []);
 
@@ -26,8 +26,10 @@ const InviteDetailModal = ({ onClose }: InviteDetailModalProps) => {
       <Header className="bg-transparent">
         <Header.Left />
         <Header.Right>
-          <Header.Button onClick={onClose}>
-            <CloseIcon32 />
+          <Header.Button>
+            <Link href={`/gathering/${gatheringId}/invites`}>
+              <CloseIcon32 />
+            </Link>
           </Header.Button>
         </Header.Right>
       </Header>
@@ -46,7 +48,7 @@ const InviteDetailModal = ({ onClose }: InviteDetailModalProps) => {
   );
 };
 
-export default InviteDetailModal;
+export default GatheringProposal;
 
 const TukLogoBlack = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="142" height="70" viewBox="0 0 142 70" fill="none">

@@ -1,16 +1,13 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useEffect, useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 
 import { gatheringAPIService } from '@/app/gathering/[gatheringId]/invites/src/service';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
+import { useIntersectionObserver } from '@/shared/hooks/useIntersectionObserver';
 import { useParam } from '@/shared/hooks/useParam';
-
-const PAGE_SIZE = 10;
 
 const SendInviteList = () => {
   const gatheringId = Number(useParam('gatheringId'));
-
-  const sentinelRef = useRef<HTMLDivElement | null>(null);
 
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ['getGatheringProposals', gatheringId, 'SENT'],
@@ -18,7 +15,7 @@ const SendInviteList = () => {
     queryFn: ({ pageParam = 1 }) =>
       gatheringAPIService.getGatheringProposals(gatheringId, 'SENT', {
         pageNumber: pageParam,
-        pageSize: PAGE_SIZE,
+        pageSize: 10,
       }),
     getNextPageParam: lastPage => {
       const { hasNext, pageNumber } = lastPage.data;
@@ -26,25 +23,13 @@ const SendInviteList = () => {
     },
   });
 
-  useEffect(() => {
-    const el = sentinelRef.current;
-    if (!el) return;
-
-    const io = new IntersectionObserver(
-      entries => {
-        const first = entries[0];
-        if (first.isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage();
-        }
-      },
-      { rootMargin: '200px 0px' }
-    );
-
-    io.observe(el);
-    return () => io.disconnect();
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
-
   const proposals = useMemo(() => data?.pages.flatMap(p => p.data.content) ?? [], [data]);
+
+  const { targetRef } = useIntersectionObserver({
+    enabled: hasNextPage && !isFetchingNextPage,
+    onIntersect: () => fetchNextPage(),
+    rootMargin: '200px 0px',
+  });
 
   return (
     <div className="mb-[6.25rem] mt-[1.875rem] flex flex-col justify-center gap-10">
@@ -61,7 +46,7 @@ const SendInviteList = () => {
         ))
       )}
 
-      <div ref={sentinelRef} className="h-1" />
+      <div ref={targetRef} className="h-1" />
     </div>
   );
 };
