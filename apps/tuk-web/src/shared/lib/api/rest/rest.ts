@@ -2,12 +2,15 @@
 
 import { RestAPIConfig, RestRequestOptions, RestAPIProtocol } from './types';
 
+import { AppBridgeMessageType } from '@/shared/lib';
+import { requestTokenRefresh } from '@/shared/lib/api/auth/refreshManager';
 import { APIError, wrapZodError } from '@/shared/lib/api/types';
 
 type RestAPIInstanceInit = {
   headers?: Record<string, string>;
   withCredentials?: boolean;
   authHeader?: () => Record<string, string> | null;
+  bridgeSend?: (msg: { type: string; payload: any }) => void;
 };
 
 export class RestAPIInstance {
@@ -34,6 +37,10 @@ export class RestAPIInstance {
 
   getAuthHeader() {
     return this.init.authHeader?.() ?? null;
+  }
+
+  getBridgeSend() {
+    return this.init.bridgeSend;
   }
 }
 
@@ -89,18 +96,6 @@ export class RestAPI implements RestAPIProtocol {
     const controller = new AbortController();
     const timer = timeoutMs ? setTimeout(() => controller.abort(), timeoutMs) : undefined;
 
-    // const methodUpper = method.toUpperCase();
-    // const reqInit: RequestInit = {
-    //   method: methodUpper,
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     ...this.instance.getDefaultHeaders(),
-    //     ...(headers ?? {}),
-    //   },
-    //   credentials: credentials ?? (this.instance.getWithCredentials() ? 'include' : 'same-origin'),
-    //   signal: signal ?? controller.signal,
-    // };
-
     const methodUpper = method.toUpperCase();
     const isGetLike = methodUpper === 'GET' || methodUpper === 'HEAD';
 
@@ -122,23 +117,19 @@ export class RestAPI implements RestAPIProtocol {
     if (!isGetLike && data !== undefined) {
       const isForm = hdr['Content-Type'] === 'multipart/form-data';
       if (isForm) {
-        // fetch가 boundary 붙이도록 헤더 제거
         delete hdr['Content-Type'];
         reqInit.body = data;
       } else {
-        // JSON 본문일 때만 Content-Type 세팅
         if (!hdr['Content-Type']) hdr['Content-Type'] = 'application/json';
         reqInit.body = JSON.stringify(data);
       }
     }
 
     if (data !== undefined && methodUpper !== 'GET') {
-      // form-data면 호출 쪽에서 headers 바꿔서 그대로 넘기면 됨
       const isForm =
         (reqInit.headers as Record<string, string>)['Content-Type'] === 'multipart/form-data';
       reqInit.body = isForm ? data : JSON.stringify(data);
       if (isForm) {
-        // fetch에서 multipart 자동 설정을 위해 헤더 제거
         delete (reqInit.headers as Record<string, string>)['Content-Type'];
       }
     }
@@ -146,7 +137,58 @@ export class RestAPI implements RestAPIProtocol {
     try {
       const res = await this.instance.request(fullUrl, reqInit);
       if (!res.ok) {
+        if (res.status === 401) {
+          const bridge = this.instance.getBridgeSend();
+          if (bridge) {
+            try {
+              // 네이티브에 갱신 요청 (중복이면 기존 대기 재사용)
+              await requestTokenRefresh(
+                () => bridge({ type: AppBridgeMessageType.REQUEST_TOKEN_REFRESH, payload: '' }),
+                10000 // 타임아웃 10초
+              );
+
+              // 새 토큰으로 헤더 갱신 후 1회 재시도
+              const refreshedHdr = {
+                ...hdr,
+                ...(this.instance.getAuthHeader() ?? {}),
+              };
+              const retry = await this.instance.request(fullUrl, {
+                ...reqInit,
+                headers: refreshedHdr,
+              });
+              if (!retry.ok) {
+                const text = await retry.text().catch(() => '');
+                throw new APIError(text || retry.statusText, {
+                  status: retry.status,
+                  meta: { errorType: 'HTTP_ERROR', errorMessage: text || retry.statusText },
+                  url: fullUrl,
+                  method: methodUpper,
+                });
+              }
+              const retryBody = await readBody(retry, parseAs);
+              const isEnvelope2 =
+                retryBody &&
+                typeof retryBody === 'object' &&
+                'success' in retryBody &&
+                'data' in retryBody;
+              const payload2 = isEnvelope2 ? (retryBody as any).data : retryBody;
+
+              if (validate) {
+                try {
+                  return validate(payload2);
+                } catch (err) {
+                  wrapZodError(err, fullUrl, methodUpper);
+                }
+              }
+              return payload2 as T;
+            } catch {
+              // intentionally ignored
+            }
+          }
+        }
+
         const text = await res.text().catch(() => '');
+
         throw new APIError(text || res.statusText, {
           status: res.status,
           meta: { errorType: 'HTTP_ERROR', errorMessage: text || res.statusText },

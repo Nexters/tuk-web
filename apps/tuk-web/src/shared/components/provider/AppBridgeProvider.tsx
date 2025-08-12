@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import type { ReactNode } from 'react';
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 
 import { useUserAgent } from '@/shared/components/provider/UserAgentProvider';
 import { AppBridgeMessage, convertToAndroidAppBridge, convertToIOSAppBridge } from '@/shared/lib';
+import { setBridgeSender } from '@/shared/lib/app-bridge/bridgeSender';
 
 interface AppBridgeProviderProps {
   children: ReactNode;
@@ -27,6 +30,12 @@ export function AppBridgeProvider({ children }: AppBridgeProviderProps) {
       alert('App Bridge API called: ' + message.type);
     }
   };
+
+  useEffect(() => {
+    setBridgeSender(msg => send(msg as any));
+    return () => setBridgeSender(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <AppBridgeContext.Provider value={{ send }}>{children}</AppBridgeContext.Provider>;
 }
