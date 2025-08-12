@@ -46,6 +46,6 @@ export function wrapZodError(err: unknown, url?: string, method?: string): never
 }
 
 export type PaginationQuery = {
-  page: number;
+  pageNumber: number;
   pageSize: number;
 };

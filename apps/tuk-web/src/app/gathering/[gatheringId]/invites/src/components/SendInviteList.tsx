@@ -17,7 +17,7 @@ const SendInviteList = () => {
     initialPageParam: 1,
     queryFn: ({ pageParam = 1 }) =>
       gatheringAPIService.getGatheringProposals(gatheringId, 'SENT', {
-        page: pageParam,
+        pageNumber: pageParam,
         pageSize: PAGE_SIZE,
       }),
     getNextPageParam: lastPage => {
