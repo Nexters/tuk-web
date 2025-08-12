@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// utils/rest/rest.ts
+
 import { RestAPIConfig, RestRequestOptions, RestAPIProtocol } from './types';
 
 import { APIError, wrapZodError } from '@/shared/lib/api/types';
@@ -7,6 +7,7 @@ import { APIError, wrapZodError } from '@/shared/lib/api/types';
 type RestAPIInstanceInit = {
   headers?: Record<string, string>;
   withCredentials?: boolean;
+  authHeader?: () => Record<string, string> | null;
 };
 
 export class RestAPIInstance {
@@ -22,11 +23,17 @@ export class RestAPIInstance {
   getBaseURL() {
     return this.baseURL;
   }
+
   getDefaultHeaders() {
     return this.init.headers ?? {};
   }
+
   getWithCredentials() {
     return this.init.withCredentials ?? true;
+  }
+
+  getAuthHeader() {
+    return this.init.authHeader?.() ?? null;
   }
 }
 
@@ -100,12 +107,10 @@ export class RestAPI implements RestAPIProtocol {
     const hdr: Record<string, string> = {
       ...this.instance.getDefaultHeaders(),
       ...(headers ?? {}),
+      ...(this.instance.getAuthHeader() ?? {}),
     };
 
-    // GET/HEAD에는 Content-Type 제거
-    if (isGetLike && 'Content-Type' in hdr) {
-      delete hdr['Content-Type'];
-    }
+    if (isGetLike && 'Content-Type' in hdr) delete hdr['Content-Type'];
 
     const reqInit: RequestInit = {
       method: methodUpper,
