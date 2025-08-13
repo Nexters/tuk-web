@@ -13,8 +13,8 @@ const ReceiveInviteList = () => {
 
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ['getGatheringProposals', gatheringId, 'RECEIVED'],
-    initialPageParam: 1,
-    queryFn: ({ pageParam = 1 }) =>
+    initialPageParam: 0,
+    queryFn: ({ pageParam = 0 }) =>
       gatheringAPIService.getGatheringProposals(gatheringId, 'RECEIVED', {
         pageNumber: pageParam,
         pageSize: 10,
