@@ -51,6 +51,12 @@ export const CreatePageResponseSchema = <T extends z.ZodTypeAny>(itemSchema: T) 
   const EnvelopeSchema = ResponseSchema(PageSchema);
 
   return {
-    parse: (response: unknown) => EnvelopeSchema.parse(response) as Envelope<Page<z.infer<T>>>,
+    parse: (response: unknown) => {
+      const r = response as any;
+      if (r && typeof r === 'object' && 'success' in r && 'data' in r) {
+        return EnvelopeSchema.parse(r).data as Page<z.infer<T>>;
+      }
+      return PageSchema.parse(response) as Page<z.infer<T>>;
+    },
   };
 };

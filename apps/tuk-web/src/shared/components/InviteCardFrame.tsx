@@ -1,8 +1,25 @@
+import { ProposalItemType } from '@/app/gathering/[gatheringId]/invites/src/service/schema/get-gathering-proposals.schema';
 import { QuoteIcon } from '@/app/invite/meet/[meetId]/src/components/InviteMeet';
 import { cn } from '@/shared/lib';
 
-const InviteCardFrame = ({ animateCardIn }: { animateCardIn?: boolean }) => {
+interface InviteCardFrameProps {
+  proposal?: ProposalItemType;
+  animateCardIn?: boolean;
+}
+
+export const MOCK_PROPOSAL: ProposalItemType = {
+  proposalId: 0,
+  gatheringName: '다음 만남은 계획대로',
+  purpose: ['제주도 여행가서', '새벽 4시까지', '전생 이야기 나누기'].join('\n'),
+  relativeTime: '',
+};
+
+const InviteCardFrame = ({ proposal, animateCardIn }: InviteCardFrameProps) => {
   const isAnimate = animateCardIn !== undefined;
+
+  const isFallback = !proposal;
+
+  const purposeLines = (proposal?.purpose ?? '').split('\n').filter(Boolean).slice(0, 3);
 
   return (
     <div
@@ -12,19 +29,38 @@ const InviteCardFrame = ({ animateCardIn }: { animateCardIn?: boolean }) => {
       )}
     >
       <div className="flex justify-end">
-        <p className="serif-body-14-R text-gray-800">
-          다음 만남은 계획대로
-          <br />
-          되지 않아 친구들에게
-        </p>
+        {isFallback ? (
+          <p className="serif-body-14-R text-right text-gray-800">
+            다음 만남은 계획대로
+            <br />
+            되지 않아 친구들에게
+          </p>
+        ) : (
+          <p className="serif-body-14-R text-right text-gray-800">
+            {proposal!.gatheringName}
+            <br />
+            친구들에게
+          </p>
+        )}
       </div>
 
       <div className="mt-[4.375rem]">
         <QuoteIcon />
+
         <div className="mt-[0.8125rem] flex flex-col gap-[0.3125rem]">
-          <p className="serif-body-16-M text-gray-900">제주도 여행가서</p>
-          <p className="serif-body-16-M text-gray-900">새벽 4시까지</p>
-          <p className="serif-body-16-M text-gray-900">전생 이야기 나누기</p>
+          {isFallback ? (
+            <>
+              <p className="serif-body-16-M text-gray-900">제주도 여행가서</p>
+              <p className="serif-body-16-M text-gray-900">새벽 4시까지</p>
+              <p className="serif-body-16-M text-gray-900">전생 이야기 나누기</p>
+            </>
+          ) : (
+            purposeLines.map((line, i) => (
+              <p key={i} className="serif-body-16-M text-gray-900">
+                {line}
+              </p>
+            ))
+          )}
         </div>
 
         <p className="serif-body-16-M mt-5 text-gray-900">어때</p>
