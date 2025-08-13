@@ -1,8 +1,10 @@
 'use client';
 
+import { useInfiniteQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
+import { gatheringAPIService } from '@/app/gathering/[gatheringId]/invites/src/service';
 import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteMeet';
 import { CloseIcon32, Header } from '@/shared/components';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
@@ -10,8 +12,33 @@ import { useParam } from '@/shared/hooks/useParam';
 
 const GatheringProposal = () => {
   const gatheringId = Number(useParam('gatheringId'));
+  const proposalId = Number(useParam('proposalId'));
+
+  const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading, isError } =
+    useInfiniteQuery({
+      queryKey: ['getGatheringProposals', gatheringId, 'RECEIVED'],
+      initialPageParam: 0,
+      queryFn: ({ pageParam = 0 }) =>
+        gatheringAPIService.getGatheringProposals(gatheringId, 'RECEIVED', {
+          pageNumber: pageParam,
+          pageSize: 10,
+        }),
+      getNextPageParam: lastPage => {
+        const { hasNext, pageNumber } = lastPage;
+        return hasNext ? pageNumber + 1 : undefined;
+      },
+    });
 
   const [animateCardIn, setAnimateCardIn] = useState(false);
+
+  const proposalData = useMemo(() => {
+    if (!data) return undefined;
+    for (const page of data.pages) {
+      const found = page.content.find(p => p.proposalId === proposalId);
+      if (found) return found;
+    }
+    return undefined;
+  }, [data, proposalId]);
 
   useEffect(() => {
     const timeout = setTimeout(() => setAnimateCardIn(true), 100);
@@ -20,6 +47,13 @@ const GatheringProposal = () => {
       clearTimeout(timeout);
     };
   }, []);
+
+  useEffect(() => {
+    if (isLoading || isError) return;
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [isLoading, isError, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
     <div className="fixed inset-0 z-50 bg-gradient-to-b from-white-default to-[#DCC8F8]">
@@ -37,7 +71,9 @@ const GatheringProposal = () => {
         <TukLogoBlack />
 
         <div className="relative mt-[3.75rem] flex justify-center">
-          <InviteCardFrame animateCardIn={animateCardIn} />
+          {proposalData && (
+            <InviteCardFrame animateCardIn={animateCardIn} proposal={proposalData} />
+          )}
 
           <div className="absolute left-1/2 top-12 -translate-x-1/2">
             <InviteCard />

@@ -10,3 +10,5 @@ export const ProposalItemSchema = z.object({
 });
 
 export const ProposalPageResponse = CreatePageResponseSchema(ProposalItemSchema);
+
+export type ProposalItemType = z.infer<typeof ProposalItemSchema>;

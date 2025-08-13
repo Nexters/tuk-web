@@ -1,3 +1,5 @@
+'use client';
+
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -18,12 +20,12 @@ const SendInviteList = () => {
         pageSize: 10,
       }),
     getNextPageParam: lastPage => {
-      const { hasNext, pageNumber } = lastPage.data;
+      const { hasNext, pageNumber } = lastPage;
       return hasNext ? pageNumber + 1 : undefined;
     },
   });
 
-  const proposals = useMemo(() => data?.pages.flatMap(p => p.data.content) ?? [], [data]);
+  const proposals = useMemo(() => data?.pages.flatMap(p => p.content) ?? [], [data]);
 
   const { targetRef } = useIntersectionObserver({
     enabled: hasNextPage && !isFetchingNextPage,
@@ -40,7 +42,7 @@ const SendInviteList = () => {
       ) : (
         proposals.map(proposal => (
           <div className="flex flex-col items-center gap-2.5" key={proposal.proposalId}>
-            <InviteCardFrame />
+            <InviteCardFrame proposal={proposal} />
             <span className="pretendard-body-12-R text-gray-800">{proposal.relativeTime}</span>
           </div>
         ))

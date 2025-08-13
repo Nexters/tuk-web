@@ -20,12 +20,12 @@ const ReceiveInviteList = () => {
         pageSize: 10,
       }),
     getNextPageParam: lastPage => {
-      const { hasNext, pageNumber } = lastPage.data;
+      const { hasNext, pageNumber } = lastPage;
       return hasNext ? pageNumber + 1 : undefined;
     },
   });
 
-  const proposals = useMemo(() => data?.pages.flatMap(p => p.data.content) ?? [], [data]);
+  const proposals = useMemo(() => data?.pages.flatMap(p => p.content) ?? [], [data]);
 
   const { targetRef } = useIntersectionObserver({
     enabled: hasNextPage && !isFetchingNextPage,
@@ -44,7 +44,7 @@ const ReceiveInviteList = () => {
           <div className="flex flex-col items-center gap-12" key={proposal.proposalId}>
             <Link href={`/gathering/${gatheringId}/invites/${proposal.proposalId}`}>
               <div className="relative flex justify-center">
-                <InviteCardFrame />
+                <InviteCardFrame proposal={proposal} />
 
                 <div className="absolute left-1/2 top-12 -translate-x-1/2">
                   <InviteCard />
