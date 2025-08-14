@@ -1,56 +1,47 @@
-'use client';
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
+import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
-
-import { gatheringAPIService } from '@/app/gathering/[gatheringId]/invites/src/service';
-import InviteCardFrame from '@/shared/components/InviteCardFrame';
-import { useIntersectionObserver } from '@/shared/hooks/useIntersectionObserver';
-import { useParam } from '@/shared/hooks/useParam';
+import SendInviteListContent from '@/app/gathering/[gatheringId]/invites/src/components/SendInviteListContent';
+import SendInvitListSkeleton from '@/app/gathering/[gatheringId]/invites/src/components/SendInvitListSkeleton';
 
 const SendInviteList = () => {
-  const gatheringId = Number(useParam('gatheringId'));
-
-  const { data, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
-    queryKey: ['getGatheringProposals', gatheringId, 'SENT'],
-    initialPageParam: 0,
-    queryFn: ({ pageParam = 0 }) =>
-      gatheringAPIService.getGatheringProposals(gatheringId, 'SENT', {
-        pageNumber: pageParam,
-        pageSize: 10,
-      }),
-    getNextPageParam: lastPage => {
-      const { hasNext, pageNumber } = lastPage;
-      return hasNext ? pageNumber + 1 : undefined;
-    },
-  });
-
-  const proposals = useMemo(() => data?.pages.flatMap(p => p.content) ?? [], [data]);
-
-  const { targetRef } = useIntersectionObserver({
-    enabled: hasNextPage && !isFetchingNextPage,
-    onIntersect: () => fetchNextPage(),
-    rootMargin: '200px 0px',
-  });
-
   return (
-    <div className="mb-[6.25rem] mt-[1.875rem] flex flex-col justify-center gap-10">
-      {proposals.length === 0 ? (
-        <div className="flex h-[16.25rem] items-center justify-center">
-          <span className="pretendard-body-14-R text-gray-800">보낸 초대장이 아직 없어요</span>
-        </div>
-      ) : (
-        proposals.map(proposal => (
-          <div className="flex flex-col items-center gap-2.5" key={proposal.proposalId}>
-            <InviteCardFrame proposal={proposal} />
-            <span className="pretendard-body-12-R text-gray-800">{proposal.relativeTime}</span>
-          </div>
-        ))
+    <QueryErrorResetBoundary>
+      {({ reset }) => (
+        <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
+          <Suspense fallback={<SendInvitListSkeleton />}>
+            <SendInviteListContent />
+          </Suspense>
+        </ErrorBoundary>
       )}
-
-      <div ref={targetRef} className="h-1" />
-    </div>
+    </QueryErrorResetBoundary>
   );
 };
 
 export default SendInviteList;
+
+const ErrorFallback = ({
+  resetErrorBoundary,
+}: {
+  error: unknown;
+  resetErrorBoundary: () => void;
+}) => {
+  return (
+    <div className="mb-[6.25rem] mt-[1.875rem] flex flex-col items-center justify-center">
+      <div className="flex h-[16.25rem] flex-col items-center justify-center gap-6">
+        <span className="pretendard-body-14-R text-gray-800">
+          초대장 목록을 불러오는 중 오류가 발생했어요
+        </span>
+        <button
+          type="button"
+          onClick={resetErrorBoundary}
+          className="rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700"
+          aria-label="초대장 목록 다시 불러오기"
+        >
+          재시도
+        </button>
+      </div>
+    </div>
+  );
+};
