@@ -2,15 +2,15 @@ import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
+import InvitListSkeleton from '@/app/gathering/[gatheringId]/invites/src/components/InvitListSkeleton';
 import SendInviteListContent from '@/app/gathering/[gatheringId]/invites/src/components/SendInviteListContent';
-import SendInvitListSkeleton from '@/app/gathering/[gatheringId]/invites/src/components/SendInvitListSkeleton';
 
 const SendInviteList = () => {
   return (
     <QueryErrorResetBoundary>
       {({ reset }) => (
         <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
-          <Suspense fallback={<SendInvitListSkeleton />}>
+          <Suspense fallback={<InvitListSkeleton />}>
             <SendInviteListContent />
           </Suspense>
         </ErrorBoundary>

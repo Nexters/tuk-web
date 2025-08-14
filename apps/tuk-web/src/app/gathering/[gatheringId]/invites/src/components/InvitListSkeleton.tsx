@@ -3,7 +3,7 @@ import { cn } from '@/shared/lib';
 const CARD_W = 'w-[16.25rem]';
 const CARD_H = 'h-[23.125rem]';
 
-const SendInvitListSkeleton = ({ count = 1 }: { count?: number }) => {
+const InvitListSkeleton = ({ count = 1 }: { count?: number }) => {
   return (
     <div className="mb-[6.25rem] mt-[1.875rem] flex flex-col justify-center gap-10">
       {Array.from({ length: count }).map((_, idx) => (
@@ -15,7 +15,7 @@ const SendInvitListSkeleton = ({ count = 1 }: { count?: number }) => {
   );
 };
 
-export default SendInvitListSkeleton;
+export default InvitListSkeleton;
 
 const SkeletonCard = () => {
   return (
