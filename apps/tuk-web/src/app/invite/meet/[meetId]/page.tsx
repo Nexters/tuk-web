@@ -1,5 +1,5 @@
-import InviteMeet from '@/app/invite/meet/[meetId]/src/components/InviteMeet';
+import InviteProposalContent from '@/app/invite/meet/[meetId]/src/components/InviteProposalContent';
 
-export default function InviteMeetPage() {
-  return <InviteMeet />;
+export default function InviteProposalPage() {
+  return <InviteProposalContent />;
 }

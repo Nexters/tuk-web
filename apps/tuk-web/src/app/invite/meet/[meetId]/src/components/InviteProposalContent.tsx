@@ -1,19 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
+import { Suspense, useEffect, useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import GradientBackground from '@/app/invite/meet/[meetId]/src/components/GradientBackground';
+import InviteProposalErrorFallback from '@/app/invite/meet/[meetId]/src/components/InviteProposalErrorFallback';
+import InviteProposalSkeleton from '@/app/invite/meet/[meetId]/src/components/InviteProposalSkeleton';
+import Test from '@/app/invite/meet/[meetId]/src/components/Test';
 import { Button } from '@/shared/components';
 import AppInstallBanner from '@/shared/components/AppInstallBanner';
-import InviteCardFrame from '@/shared/components/InviteCardFrame';
 import { cn } from '@/shared/lib';
 
 const BANNER_KEY = 'invite-banner-dismissed-at';
 const BANNER_RESHOW_MINUTES = 30;
 
-const InviteMeet = () => {
+const InviteProposalContent = () => {
   const [showBanner, setShowBanner] = useState(false);
-  const [animateCardIn, setAnimateCardIn] = useState(false);
 
   const handleCloseBanner = () => {
     localStorage.setItem(BANNER_KEY, Date.now().toString());
@@ -33,10 +36,6 @@ const InviteMeet = () => {
         setShowBanner(true);
       }
     }
-
-    const timeout = setTimeout(() => setAnimateCardIn(true), 100);
-
-    return () => clearTimeout(timeout);
   }, []);
 
   return (
@@ -56,13 +55,15 @@ const InviteMeet = () => {
         도착했어요
       </h2>
 
-      <div className="relative mt-12 flex justify-center">
-        <InviteCardFrame animateCardIn={animateCardIn} />
-
-        <div className="absolute left-1/2 top-12 -translate-x-1/2">
-          <InviteCard />
-        </div>
-      </div>
+      <QueryErrorResetBoundary>
+        {({ reset }) => (
+          <ErrorBoundary onReset={reset} FallbackComponent={InviteProposalErrorFallback}>
+            <Suspense fallback={<InviteProposalSkeleton />}>
+              <Test />
+            </Suspense>
+          </ErrorBoundary>
+        )}
+      </QueryErrorResetBoundary>
 
       <div className="mt-[4.125rem] flex justify-center pb-[9.0625rem]">
         <TukLogo />
@@ -75,7 +76,7 @@ const InviteMeet = () => {
   );
 };
 
-export default InviteMeet;
+export default InviteProposalContent;
 
 export const InviteCard = () => (
   <svg

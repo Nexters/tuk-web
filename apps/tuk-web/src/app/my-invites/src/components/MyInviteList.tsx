@@ -1,6 +1,6 @@
 'use client';
 
-import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteMeet';
+import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteProposalContent';
 import { Header, LeftArrowIcon } from '@/shared/components';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
 import { useAppBridge } from '@/shared/components/provider/AppBridgeProvider';

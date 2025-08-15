@@ -32,10 +32,15 @@ export class APIError extends Error {
 
 export function wrapZodError(err: unknown, url?: string, method?: string): never {
   if (err instanceof z.ZodError) {
-    const issues = err.issues
-      .map(i => `${i.path.join('.') || '(root)'}: ${i.message}`)
-      .join('\n - ');
-    const msg = `Zod validation failed:\n - ${issues}`;
+    const msg = generateZodError(err);
+
+    // eslint-disable-next-line no-console
+    console.error(
+      `[Zod Validate Log]\n api-url: ${url || 'endpoint'}\n`,
+      `metod: ${method}\n`,
+      err
+    );
+
     throw new APIError(msg, {
       meta: { errorType: 'ZOD_ERROR', errorMessage: msg },
       url,
@@ -48,4 +53,19 @@ export function wrapZodError(err: unknown, url?: string, method?: string): never
 export type PaginationQuery = {
   pageNumber: number;
   pageSize: number;
+};
+
+const generateZodError = (error: z.ZodError) => {
+  let message = '';
+  error.errors.forEach(issue => {
+    if (issue.code === 'invalid_type' || issue.code === 'invalid_literal') {
+      message = `Error: Invalid data at path ${issue.path.join(' -> ')}
+- Code: ${issue.code}
+- Expected: ${issue.expected}
+- Received: ${issue.received}
+- Message: ${issue.message}`;
+    }
+  });
+
+  return message;
 };

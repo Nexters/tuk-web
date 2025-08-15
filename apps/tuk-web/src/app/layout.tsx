@@ -2,12 +2,13 @@ import type { Metadata } from 'next';
 
 import ClientProvider from '@/shared/components/provider/ClientProvider';
 import ReactQueryProvider from '@/shared/components/provider/ReactQueryProvider';
+import CONFIG from '@/shared/config';
 
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {
-  title: 'TUK',
-  description: '툭, 건네는 만남 TUK',
+  title: CONFIG.META.TITLE,
+  description: CONFIG.META.DESCRIPTION,
 };
 
 export const viewport = {

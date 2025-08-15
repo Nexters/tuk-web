@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 
 import { gatheringAPIService } from '@/app/gathering/[gatheringId]/invites/src/service';
-import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteMeet';
+import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteProposalContent';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
 import { useIntersectionObserver } from '@/shared/hooks/useIntersectionObserver';
 import { useParam } from '@/shared/hooks/useParam';

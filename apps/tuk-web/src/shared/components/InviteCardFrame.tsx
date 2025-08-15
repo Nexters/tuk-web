@@ -1,5 +1,5 @@
 import { ProposalItemType } from '@/app/gathering/[gatheringId]/invites/src/service/schema/get-gathering-proposals.schema';
-import { QuoteIcon } from '@/app/invite/meet/[meetId]/src/components/InviteMeet';
+import { QuoteIcon } from '@/app/invite/meet/[meetId]/src/components/InviteProposalContent';
 import { cn } from '@/shared/lib';
 
 interface InviteCardFrameProps {
