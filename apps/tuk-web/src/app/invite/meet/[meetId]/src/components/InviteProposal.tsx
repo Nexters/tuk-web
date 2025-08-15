@@ -8,6 +8,7 @@ import GradientBackground from '@/app/invite/meet/[meetId]/src/components/Gradie
 import InviteProposalContent from '@/app/invite/meet/[meetId]/src/components/InviteProposalContent';
 import InviteProposalErrorFallback from '@/app/invite/meet/[meetId]/src/components/InviteProposalErrorFallback';
 import InviteProposalSkeleton from '@/app/invite/meet/[meetId]/src/components/InviteProposalSkeleton';
+import SkeletonGuard from '@/app/invite/meet/[meetId]/src/components/SkeletonGuard';
 import { Button } from '@/shared/components';
 import AppInstallBanner from '@/shared/components/AppInstallBanner';
 import { cn } from '@/shared/lib';
@@ -58,9 +59,11 @@ const InviteProposal = () => {
       <QueryErrorResetBoundary>
         {({ reset }) => (
           <ErrorBoundary onReset={reset} FallbackComponent={InviteProposalErrorFallback}>
-            <Suspense fallback={<InviteProposalSkeleton />}>
-              <InviteProposalContent />
-            </Suspense>
+            <SkeletonGuard minMs={250} skeleton={<InviteProposalSkeleton />}>
+              <Suspense fallback={<InviteProposalSkeleton />}>
+                <InviteProposalContent />
+              </Suspense>
+            </SkeletonGuard>
           </ErrorBoundary>
         )}
       </QueryErrorResetBoundary>
