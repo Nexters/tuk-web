@@ -2,10 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import {
-  InviteCard,
-  TukLogo,
-} from '@/app/invite/meet/[meetId]/src/components/InviteProposalContent';
+import { InviteCard, TukLogo } from '@/app/invite/meet/[meetId]/src/components/InviteProposal';
 import { Button } from '@/shared/components';
 import AppInstallBanner from '@/shared/components/AppInstallBanner';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';

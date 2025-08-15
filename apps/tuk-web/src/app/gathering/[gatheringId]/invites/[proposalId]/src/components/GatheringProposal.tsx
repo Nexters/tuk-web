@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 
 import { gatheringAPIService } from '@/app/gathering/[gatheringId]/invites/src/service';
-import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteProposalContent';
+import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteProposal';
 import { CloseIcon32, Header } from '@/shared/components';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
 import { useParam } from '@/shared/hooks/useParam';
