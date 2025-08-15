@@ -6,12 +6,15 @@ import { InviteCard, TukLogo } from '@/app/invite/meet/[meetId]/src/components/I
 import { Button } from '@/shared/components';
 import AppInstallBanner from '@/shared/components/AppInstallBanner';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
+import { useParam } from '@/shared/hooks/useParam';
 import { cn } from '@/shared/lib';
 
 const BANNER_KEY = 'gathering-banner-dismissed-at';
 const BANNER_RESHOW_MINUTES = 30;
 
 const InviteGathering = () => {
+  const gatheringId = Number(useParam('gatheringId'));
+
   const [showBanner, setShowBanner] = useState(false);
   const [animateCardIn, setAnimateCardIn] = useState(false);
 
@@ -68,7 +71,14 @@ const InviteGathering = () => {
       </div>
 
       <div className="fixed bottom-0 left-0 z-30 w-full bg-gradient-to-b from-white-default/0 to-white-default px-5 py-6">
-        <Button className="w-full">입장하기</Button>
+        <Button
+          className="w-full"
+          onClick={() =>
+            (window.location.href = `tuk-app://tuk/join-gathering?gatheringId=${gatheringId}`)
+          }
+        >
+          입장하기
+        </Button>
       </div>
     </div>
   );
