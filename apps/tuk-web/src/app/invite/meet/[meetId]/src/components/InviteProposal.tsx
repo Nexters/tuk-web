@@ -1,7 +1,7 @@
 'use client';
 
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import GradientBackground from '@/app/invite/meet/[meetId]/src/components/GradientBackground';
@@ -10,51 +10,11 @@ import InviteProposalErrorFallback from '@/app/invite/meet/[meetId]/src/componen
 import InviteProposalSkeleton from '@/app/invite/meet/[meetId]/src/components/InviteProposalSkeleton';
 import SkeletonGuard from '@/app/invite/meet/[meetId]/src/components/SkeletonGuard';
 import { Button } from '@/shared/components';
-import AppInstallBanner from '@/shared/components/AppInstallBanner';
-import { cn } from '@/shared/lib';
-
-const BANNER_KEY = 'invite-banner-dismissed-at';
-const BANNER_RESHOW_MINUTES = 30;
 
 const InviteProposal = () => {
-  const [showBanner, setShowBanner] = useState(false);
-
-  const handleCloseBanner = () => {
-    localStorage.setItem(BANNER_KEY, Date.now().toString());
-    setShowBanner(false);
-  };
-
-  useEffect(() => {
-    const dismissedAt = localStorage.getItem(BANNER_KEY);
-    const now = Date.now();
-
-    if (!dismissedAt) {
-      setShowBanner(true);
-    } else {
-      const dismissedTime = parseInt(dismissedAt, 10);
-      const thirtyMinutes = BANNER_RESHOW_MINUTES * 60 * 1000;
-      if (now - dismissedTime > thirtyMinutes) {
-        setShowBanner(true);
-      }
-    }
-  }, []);
-
   return (
     <div className="relative w-full overflow-y-auto overflow-x-hidden bg-gradient-to-b from-white-default to-[#DCC8F8] px-5">
       <GradientBackground />
-
-      {showBanner && <AppInstallBanner onClose={handleCloseBanner} />}
-
-      <h2
-        className={cn(
-          'serif-title-22-M font-bold text-gray-900',
-          showBanner ? 'mt-[6.875rem]' : 'mt-[1.875rem]'
-        )}
-      >
-        보고 싶은 마음이
-        <br />
-        도착했어요
-      </h2>
 
       <QueryErrorResetBoundary>
         {({ reset }) => (
