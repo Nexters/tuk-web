@@ -5,7 +5,6 @@ export class ProposalAPIService {
   constructor(private fetch: RestAPIProtocol) {}
 
   getProposalDetail(proposalId: number) {
-    throw new Error('💥 Test Error: 강제로 발생시킨 에러입니다.');
     return this.fetch.get({
       url: ':proposalId',
       param: {
