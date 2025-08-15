@@ -114,13 +114,14 @@ export class RestAPI implements RestAPIProtocol {
       signal: signal ?? controller.signal,
     };
 
+    const isFormData = typeof FormData !== 'undefined' && data instanceof FormData;
+
     if (!isGetLike && data !== undefined) {
-      const isForm = hdr['Content-Type'] === 'multipart/form-data';
-      if (isForm) {
+      if (isFormData) {
         delete hdr['Content-Type'];
         reqInit.body = data;
       } else {
-        if (!hdr['Content-Type']) hdr['Content-Type'] = 'application/json';
+        hdr['Content-Type'] ||= 'application/json';
         reqInit.body = JSON.stringify(data);
       }
     }
@@ -146,20 +147,22 @@ export class RestAPI implements RestAPIProtocol {
               // 네이티브에 갱신 요청 (중복이면 기존 대기 재사용)
               await requestTokenRefresh(
                 () => bridge({ type: AppBridgeMessageType.REQUEST_TOKEN_REFRESH, payload: '' }),
-                10000 // 타임아웃 10초
+                3000 // 타임아웃 10초
               );
 
               // 새 토큰으로 헤더 갱신 후 1회 재시도
-              const refreshedHdr = {
-                ...hdr,
-                ...(this.instance.getAuthHeader() ?? {}),
-              };
+              const refreshedHdr = { ...hdr };
+              delete refreshedHdr['Authorization'];
+              Object.assign(refreshedHdr, this.instance.getAuthHeader() ?? {});
+
               const retry = await this.instance.request(fullUrl, {
                 ...reqInit,
                 headers: refreshedHdr,
               });
+
               if (!retry.ok) {
                 const text = await retry.text().catch(() => '');
+
                 throw new APIError(text || retry.statusText, {
                   status: retry.status,
                   meta: { errorType: 'HTTP_ERROR', errorMessage: text || retry.statusText },
@@ -167,12 +170,15 @@ export class RestAPI implements RestAPIProtocol {
                   method: methodUpper,
                 });
               }
+
               const retryBody = await readBody(retry, parseAs);
+
               const isEnvelope2 =
                 retryBody &&
                 typeof retryBody === 'object' &&
                 'success' in retryBody &&
                 'data' in retryBody;
+
               const payload2 = isEnvelope2 ? (retryBody as any).data : retryBody;
 
               if (validate) {
