@@ -53,7 +53,9 @@ const GatheringProposalContent = () => {
       </h2>
 
       <div className="relative mt-[70px] flex flex-col items-center justify-center">
-        <div className="flex justify-center">{<Card proposalData={proposalDetail.data} />}</div>
+        <div className="flex justify-center">
+          <Card proposalData={proposalDetail.data} />
+        </div>
 
         <div
           className={cn(
@@ -81,7 +83,7 @@ const GatheringProposalContent = () => {
 
 export default GatheringProposalContent;
 
-const Card = ({ proposalData }: { proposalData: ProposalItemType }) => {
+export const Card = ({ proposalData }: { proposalData: ProposalItemType }) => {
   const purposeLines = (proposalData.purpose ?? '').split('\n').filter(Boolean).slice(0, 3);
 
   return (

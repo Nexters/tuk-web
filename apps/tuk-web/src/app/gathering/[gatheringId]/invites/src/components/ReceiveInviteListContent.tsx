@@ -3,8 +3,7 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 
 import { gatheringProposalAPIService } from '@/app/gathering/[gatheringId]/invites/src/service';
-import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteProposal';
-import InviteCardFrame from '@/shared/components/InviteCardFrame';
+import { Card } from '@/app/proposal/[proposalId]/detail/components/GatheringProposalContent';
 import { useIntersectionObserver } from '@/shared/hooks/useIntersectionObserver';
 import { useParam } from '@/shared/hooks/useParam';
 
@@ -42,15 +41,9 @@ const ReceiveInviteListContent = () => {
       ) : (
         <>
           {proposals.map(proposal => (
-            <div className="flex flex-col items-center gap-12" key={proposal.proposalId}>
+            <div className="flex flex-col items-center gap-2.5" key={proposal.proposalId}>
               <Link href={`/proposal/${proposal.proposalId}/detail`}>
-                <div className="relative flex justify-center">
-                  <InviteCardFrame proposal={proposal} />
-
-                  <div className="absolute left-1/2 top-12 -translate-x-1/2">
-                    <InviteCard />
-                  </div>
-                </div>
+                <Card proposalData={proposal} />
               </Link>
 
               <span className="pretendard-body-12-R text-gray-800">{proposal.relativeTime}</span>
