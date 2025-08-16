@@ -5,7 +5,7 @@ const CARD_H = 'h-[23.125rem]';
 
 const InviteProposalSkeleton = () => {
   return (
-    <div className="mb-[6.25rem] mt-[1.875rem] flex flex-col items-center justify-center">
+    <div className="mt-12 flex flex-col items-center justify-center">
       <div
         className={cn(
           'relative rounded-[0.625rem] bg-[#f0f1f3] px-4 py-3',
