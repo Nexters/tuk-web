@@ -1,16 +1,15 @@
 'use client';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
-// import Link from 'next/link';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { ProposalItemType } from '@/app/gathering/[gatheringId]/invites/src/service/schema/get-gathering-proposals.schema';
 import { QuoteIcon } from '@/app/invite/meet/[meetId]/src/components/InviteProposal';
 import { proposalAPIService } from '@/app/invite/meet/[meetId]/src/service';
+import { CloseIcon32, Header } from '@/shared/components';
 import { useParam } from '@/shared/hooks/useParam';
 import { cn } from '@/shared/lib';
-
-// import { CloseIcon32, Header } from '@/shared/components';
 
 const GatheringProposalContent = () => {
   const proposalId = Number(useParam('proposalId'));
@@ -37,14 +36,20 @@ const GatheringProposalContent = () => {
     <div className="relative h-screen w-full overflow-hidden">
       <div className="absolute left-[-259px] top-[244px] z-0 h-[406px] w-[898px] bg-gradient-to-b from-[#FFA098] via-[#FFAC85] to-[#FFFEFE] blur-[100px]" />
 
-      {/* <Header className="bg-transparent">
+      <Header className="bg-transparent">
         <Header.Left />
         <Header.Right>
           <Header.Button>
-            <CloseIcon32 />
+            <Link
+              href={`/gathering/${proposalDetail.data.gatheringId}/invites`}
+              replace
+              scroll={false}
+            >
+              <CloseIcon32 />
+            </Link>
           </Header.Button>
         </Header.Right>
-      </Header> */}
+      </Header>
 
       <h2 className="serif-title-24-M px-5 text-[#222222]">
         보고싶은 마음이
