@@ -61,7 +61,7 @@ const GatheringProposal = () => {
         <Header.Left />
         <Header.Right>
           <Header.Button>
-            <Link href={`/gathering/${gatheringId}/invites`}>
+            <Link href={`/gathering/${gatheringId}/invites`} replace scroll={false}>
               <CloseIcon32 />
             </Link>
           </Header.Button>

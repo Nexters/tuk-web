@@ -2,12 +2,14 @@ export enum AppBridgeMessageType {
   NAVIGATE_GATHERING_DETAIL = 'navigateGatheringDetail',
   NAVIGATE_HOME = 'navigateHome',
   REQUEST_TOKEN_REFRESH = 'requestTokenRefresh',
+  NAVIGATE_BACK = 'navigateBack',
 }
 
 export type AppBridgeMessage =
   | NavigateGatheringDetailMessage
   | NavigateHomeMessage
-  | RequestTokenRefreshMessage;
+  | RequestTokenRefreshMessage
+  | NavigateBackMessage;
 
 export interface NavigateGatheringDetailMessage {
   type: AppBridgeMessageType.NAVIGATE_GATHERING_DETAIL;
@@ -21,5 +23,10 @@ export interface NavigateHomeMessage {
 
 export interface RequestTokenRefreshMessage {
   type: AppBridgeMessageType.REQUEST_TOKEN_REFRESH;
+  payload: '';
+}
+
+export interface NavigateBackMessage {
+  type: AppBridgeMessageType.NAVIGATE_BACK;
   payload: '';
 }
