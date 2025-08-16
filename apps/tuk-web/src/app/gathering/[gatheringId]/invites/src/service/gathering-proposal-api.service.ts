@@ -2,7 +2,7 @@ import { ProposalPageResponse } from '@/app/gathering/[gatheringId]/invites/src/
 import { RestAPIProtocol } from '@/shared/lib/api/rest/types';
 import { PaginationQuery } from '@/shared/lib/api/types';
 
-export class GatheringAPIService {
+export class GatheringProposalAPIService {
   constructor(private fetch: RestAPIProtocol) {}
 
   getGatheringProposals(gatheringId: number, type: 'SENT' | 'RECEIVED', page: PaginationQuery) {

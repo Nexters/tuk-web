@@ -1,7 +1,7 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
-import { gatheringAPIService } from '@/app/gathering/[gatheringId]/invites/src/service';
+import { gatheringProposalAPIService } from '@/app/gathering/[gatheringId]/invites/src/service';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
 import { useIntersectionObserver } from '@/shared/hooks/useIntersectionObserver';
 import { useParam } from '@/shared/hooks/useParam';
@@ -12,7 +12,7 @@ const SendInviteListContent = () => {
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery({
     queryKey: ['getGatheringProposals', gatheringId, 'SENT'],
     queryFn: ({ pageParam = 1 }) =>
-      gatheringAPIService.getGatheringProposals(gatheringId, 'SENT', {
+      gatheringProposalAPIService.getGatheringProposals(gatheringId, 'SENT', {
         pageNumber: pageParam,
         pageSize: 10,
       }),
