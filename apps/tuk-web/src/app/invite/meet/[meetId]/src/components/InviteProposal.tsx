@@ -10,8 +10,11 @@ import InviteProposalErrorFallback from '@/app/invite/meet/[meetId]/src/componen
 import InviteProposalSkeleton from '@/app/invite/meet/[meetId]/src/components/InviteProposalSkeleton';
 import SkeletonGuard from '@/app/invite/meet/[meetId]/src/components/SkeletonGuard';
 import { Button } from '@/shared/components';
+import { useParam } from '@/shared/hooks/useParam';
 
 const InviteProposal = () => {
+  const proposalId = Number(useParam('meetId'));
+
   return (
     <div className="relative w-full overflow-y-auto overflow-x-hidden bg-gradient-to-b from-white-default to-[#DCC8F8] px-5">
       <GradientBackground />
@@ -33,7 +36,12 @@ const InviteProposal = () => {
       </div>
 
       <div className="fixed bottom-0 left-0 z-30 w-full bg-gradient-to-b from-white-default/0 to-white-default px-5 py-6">
-        <Button className="w-full">초대장 확인하기</Button>
+        <Button
+          className="w-full"
+          onClick={() => (window.location.href = `tuk-app://tuk/proposal-detail/${proposalId}`)}
+        >
+          초대장 확인하기
+        </Button>
       </div>
     </div>
   );

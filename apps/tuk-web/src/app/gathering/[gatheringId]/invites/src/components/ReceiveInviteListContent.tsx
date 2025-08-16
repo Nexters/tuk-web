@@ -2,7 +2,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useMemo } from 'react';
 
-import { gatheringAPIService } from '@/app/gathering/[gatheringId]/invites/src/service';
+import { gatheringProposalAPIService } from '@/app/gathering/[gatheringId]/invites/src/service';
 import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteProposal';
 import InviteCardFrame from '@/shared/components/InviteCardFrame';
 import { useIntersectionObserver } from '@/shared/hooks/useIntersectionObserver';
@@ -15,7 +15,7 @@ const ReceiveInviteListContent = () => {
     queryKey: ['getGatheringProposals', gatheringId, 'RECEIVED'],
     initialPageParam: 1,
     queryFn: ({ pageParam = 1 }) =>
-      gatheringAPIService.getGatheringProposals(gatheringId, 'RECEIVED', {
+      gatheringProposalAPIService.getGatheringProposals(gatheringId, 'RECEIVED', {
         pageNumber: pageParam,
         pageSize: 10,
       }),

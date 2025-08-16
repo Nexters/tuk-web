@@ -82,6 +82,10 @@
     @apply font-noto text-[18px] font-medium leading-[25px] tracking-[-0.0625rem];
   }
 
+  .serif-body-20-R {
+    @apply font-noto text-[20px] font-normal leading-[28px] tracking-[-0.09375rem];
+  }
+
   .serif-title-22-M {
     @apply font-noto text-[22px] font-medium leading-[30px] tracking-[-0.09375rem];
   }

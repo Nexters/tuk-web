@@ -1,70 +1,35 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
+import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
-import { InviteCard, TukLogo } from '@/app/invite/meet/[meetId]/src/components/InviteProposal';
+import InviteGatheringContent from '@/app/invite/gathering/[gatheringId]/src/components/InviteGatheringContent';
+import InviteGatheringErrorFallback from '@/app/invite/gathering/[gatheringId]/src/components/InviteGatheringErrorFallback';
+import InviteGatheringSkeleton from '@/app/invite/gathering/[gatheringId]/src/components/InviteGatheringSkeleton';
+import { TukLogo } from '@/app/invite/meet/[meetId]/src/components/InviteProposal';
+import SkeletonGuard from '@/app/invite/meet/[meetId]/src/components/SkeletonGuard';
 import { Button } from '@/shared/components';
-import AppInstallBanner from '@/shared/components/AppInstallBanner';
-import InviteCardFrame from '@/shared/components/InviteCardFrame';
 import { useParam } from '@/shared/hooks/useParam';
-import { cn } from '@/shared/lib';
-
-const BANNER_KEY = 'gathering-banner-dismissed-at';
-const BANNER_RESHOW_MINUTES = 30;
 
 const InviteGathering = () => {
   const gatheringId = Number(useParam('gatheringId'));
 
-  const [showBanner, setShowBanner] = useState(false);
-  const [animateCardIn, setAnimateCardIn] = useState(false);
-
-  const handleCloseBanner = () => {
-    localStorage.setItem(BANNER_KEY, Date.now().toString());
-    setShowBanner(false);
-  };
-
-  useEffect(() => {
-    const dismissedAt = localStorage.getItem(BANNER_KEY);
-    const now = Date.now();
-
-    if (!dismissedAt) {
-      setShowBanner(true);
-    } else {
-      const dismissedTime = parseInt(dismissedAt, 10);
-      const thirtyMinutes = BANNER_RESHOW_MINUTES * 60 * 1000;
-      if (now - dismissedTime > thirtyMinutes) {
-        setShowBanner(true);
-      }
-    }
-
-    const timeout = setTimeout(() => setAnimateCardIn(true), 100);
-
-    return () => clearTimeout(timeout);
-  }, []);
   return (
     <div className="relative w-full overflow-y-auto overflow-x-hidden bg-gray-50 px-5">
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[706px] -translate-x-1/2 -translate-y-1/2 rotate-[-21deg] bg-gradient-to-b from-[#FFA098] to-[#FDD27C] opacity-60 blur-[100px]" />
 
-      {showBanner && <AppInstallBanner onClose={handleCloseBanner} />}
-
-      <h2
-        className={cn(
-          'serif-title-22-M font-bold text-gray-900',
-          showBanner ? 'mt-[6.875rem]' : 'mt-[1.875rem]'
+      <QueryErrorResetBoundary>
+        {({ reset }) => (
+          <ErrorBoundary onReset={reset} FallbackComponent={InviteGatheringErrorFallback}>
+            <SkeletonGuard minMs={250} skeleton={<InviteGatheringSkeleton />}>
+              <Suspense fallback={<InviteGatheringSkeleton />}>
+                <InviteGatheringContent />
+              </Suspense>
+            </SkeletonGuard>
+          </ErrorBoundary>
         )}
-      >
-        모임에
-        <br />
-        참여하시겠어요?
-      </h2>
-
-      <div className="relative mt-12 flex justify-center">
-        <InviteCardFrame animateCardIn={animateCardIn} />
-
-        <div className="absolute left-1/2 top-12 -translate-x-1/2">
-          <InviteCard />
-        </div>
-      </div>
+      </QueryErrorResetBoundary>
 
       <div className="mt-[4.125rem] flex justify-center pb-[9.0625rem]">
         <TukLogo />
