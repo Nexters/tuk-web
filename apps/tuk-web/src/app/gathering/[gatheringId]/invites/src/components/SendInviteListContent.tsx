@@ -1,4 +1,5 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import { useMemo } from 'react';
 
 import { gatheringProposalAPIService } from '@/app/gathering/[gatheringId]/invites/src/service';
@@ -41,7 +42,9 @@ const SendInviteListContent = () => {
         <>
           {proposals.map(proposal => (
             <div className="flex flex-col items-center gap-2.5" key={proposal.proposalId}>
-              <Card proposalData={proposal} />
+              <Link href={`/proposal/${proposal.proposalId}/detail`}>
+                <Card proposalData={proposal} />
+              </Link>
 
               <span className="pretendard-body-12-R text-gray-800">{proposal.relativeTime}</span>
             </div>
