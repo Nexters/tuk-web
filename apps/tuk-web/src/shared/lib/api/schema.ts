@@ -27,7 +27,15 @@ export type Envelope<T> = {
 export const CreateResponseSchema = <T extends z.ZodTypeAny>(schema: T) => {
   const EnvelopeSchema = ResponseSchema(schema);
   return {
-    parse: (response: unknown) => EnvelopeSchema.parse(response) as Envelope<z.infer<T>>,
+    parse: (response: unknown) => {
+      const r = response as any;
+      if (r && typeof r === 'object' && 'success' in r && 'data' in r) {
+        return EnvelopeSchema.parse(r) as Envelope<z.infer<T>>;
+      }
+      const data = schema.parse(response) as z.infer<T>;
+      return { success: true, data, meta: undefined } satisfies Envelope<z.infer<T>>;
+    },
+    parseData: (response: unknown) => schema.parse(response) as z.infer<T>,
   };
 };
 
