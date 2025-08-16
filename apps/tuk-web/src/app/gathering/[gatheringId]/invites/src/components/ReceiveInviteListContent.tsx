@@ -43,7 +43,7 @@ const ReceiveInviteListContent = () => {
         <>
           {proposals.map(proposal => (
             <div className="flex flex-col items-center gap-12" key={proposal.proposalId}>
-              <Link href={`/gathering/${gatheringId}/invites/${proposal.proposalId}`}>
+              <Link href={`/proposal/${proposal.proposalId}/detail`}>
                 <div className="relative flex justify-center">
                   <InviteCardFrame proposal={proposal} />
 
