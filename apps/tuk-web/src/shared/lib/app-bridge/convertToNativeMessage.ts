@@ -2,6 +2,8 @@ import { AppBridgeMessageType, AppBridgeMessage } from './appBridgeMessageType';
 
 const iosHandlers = {
   [AppBridgeMessageType.NAVIGATE_GATHERING_DETAIL]: (message: string) =>
+    window.webkit?.messageHandlers.navigateBack.postMessage(message),
+  [AppBridgeMessageType.NAVIGATE_BACK]: (message: string) =>
     window.webkit?.messageHandlers.navigateGatheringDetail.postMessage(message),
   [AppBridgeMessageType.NAVIGATE_HOME]: (message: string) =>
     window.webkit?.messageHandlers.navigateHome.postMessage(message),
@@ -10,6 +12,7 @@ const iosHandlers = {
 };
 
 const androidHandlers = {
+  [AppBridgeMessageType.NAVIGATE_BACK]: () => window.AndroidBridge?.navigateBack(),
   [AppBridgeMessageType.NAVIGATE_GATHERING_DETAIL]: () =>
     window.AndroidBridge?.navigateGatheringDetail(),
   [AppBridgeMessageType.NAVIGATE_HOME]: () => window.AndroidBridge?.navigateHome(),

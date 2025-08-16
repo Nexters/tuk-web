@@ -17,9 +17,7 @@ const GatheringInviteList = () => {
     <>
       <Header>
         <Header.Left
-          onClick={() =>
-            send({ type: AppBridgeMessageType.NAVIGATE_GATHERING_DETAIL, payload: '' })
-          }
+          onClick={() => send({ type: AppBridgeMessageType.NAVIGATE_BACK, payload: '' })}
         >
           <Header.Button>
             <LeftArrowIcon />
