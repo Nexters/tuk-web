@@ -27,7 +27,7 @@ export const Tabs = ({
 
 const TabsList = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="sticky top-16 z-10 flex h-[3.375rem] gap-4 border-b border-gray-200 bg-white-default px-5">
+    <div className="sticky top-0 z-10 flex h-[3.375rem] gap-4 border-b border-gray-200 bg-white-default px-5">
       {children}
     </div>
   );
