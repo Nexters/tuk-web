@@ -34,7 +34,7 @@ const GatheringProposal = () => {
   if (!data) return null;
 
   return (
-    <div className="relative h-screen w-full overflow-y-auto overflow-x-hidden">
+    <div className="relative h-screen w-full overflow-hidden">
       <div className="absolute left-[-259px] top-[244px] z-0 h-[406px] w-[898px] bg-gradient-to-b from-[#FFA098] via-[#FFAC85] to-[#FFFEFE] blur-[100px]" />
 
       {/* <Header className="bg-transparent">
