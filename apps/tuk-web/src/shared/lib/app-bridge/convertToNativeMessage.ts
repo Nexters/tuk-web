@@ -2,9 +2,9 @@ import { AppBridgeMessageType, AppBridgeMessage } from './appBridgeMessageType';
 
 const iosHandlers = {
   [AppBridgeMessageType.NAVIGATE_GATHERING_DETAIL]: (message: string) =>
-    window.webkit?.messageHandlers.navigateBack.postMessage(message),
-  [AppBridgeMessageType.NAVIGATE_BACK]: (message: string) =>
     window.webkit?.messageHandlers.navigateGatheringDetail.postMessage(message),
+  [AppBridgeMessageType.NAVIGATE_BACK]: (message: string) =>
+    window.webkit?.messageHandlers.navigateBack.postMessage(message),
   [AppBridgeMessageType.NAVIGATE_HOME]: (message: string) =>
     window.webkit?.messageHandlers.navigateHome.postMessage(message),
   [AppBridgeMessageType.REQUEST_TOKEN_REFRESH]: (message: string) =>

@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import ReceiveInviteList from '@/app/gathering/[gatheringId]/invites/src/components/ReceiveInviteList';
 import SendInviteList from '@/app/gathering/[gatheringId]/invites/src/components/SendInviteList';
-import { Header, Tabs, LeftArrowIcon } from '@/shared/components';
+import { Header, LeftArrowIcon, Tabs } from '@/shared/components';
 import { useAppBridge } from '@/shared/components/provider/AppBridgeProvider';
 import { AppBridgeMessageType } from '@/shared/lib';
 
