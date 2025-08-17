@@ -138,8 +138,6 @@ export class RestAPI implements RestAPIProtocol {
       const res = await this.instance.request(fullUrl, reqInit);
       if (!res.ok) {
         if (res.status === 401) {
-          sessionStorage.removeItem('accessToken');
-
           const bridge = this.instance.getBridgeSend();
           if (bridge) {
             try {
@@ -158,6 +156,7 @@ export class RestAPI implements RestAPIProtocol {
                 ...reqInit,
                 headers: refreshedHdr,
               });
+
               if (!retry.ok) {
                 const text = await retry.text().catch(() => '');
                 throw new APIError(text || retry.statusText, {

@@ -1,6 +1,7 @@
 import { RestAPI, RestAPIInstance } from './rest';
 import type { RestAPIConfig } from './types';
 
+import { makeAuthHeader } from '@/shared/lib/api/auth/token';
 import { getBridgeSender } from '@/shared/lib/app-bridge/bridgeSender';
 
 export { RestAPI } from './rest';
@@ -9,12 +10,14 @@ export type { RestAPIConfig, RestAPIProtocol } from './types';
 const defaultJsonInstance = (baseURL: string) =>
   new RestAPIInstance(baseURL, {
     withCredentials: false,
-    authHeader: () => {
-      if (typeof window === 'undefined') return null;
-      const token = sessionStorage.getItem('accessToken');
-      return token ? { Authorization: `Bearer ${token}` } : null;
-    },
-    bridgeSend: msg => getBridgeSender()?.(msg),
+    // authHeader: () => {
+    //   if (typeof window === 'undefined') return null;
+    //   const token = sessionStorage.getItem('accessToken');
+    //   return token ? { Authorization: `Bearer ${token}` } : null;
+    // },
+    authHeader: () => makeAuthHeader(),
+    headers: { Accept: 'application/json' },
+    // bridgeSend: msg => getBridgeSender()?.(msg),
   });
 
 // const defaultJsonInstance = (baseURL: string) =>
