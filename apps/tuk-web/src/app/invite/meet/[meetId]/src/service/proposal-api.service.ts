@@ -5,6 +5,7 @@ export class ProposalAPIService {
   constructor(private fetch: RestAPIProtocol) {}
 
   getProposalDetail(proposalId: number) {
+    throw new Error('error');
     return this.fetch.get({
       url: ':proposalId',
       param: {
