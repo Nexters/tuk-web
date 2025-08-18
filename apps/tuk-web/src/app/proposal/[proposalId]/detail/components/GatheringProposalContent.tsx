@@ -113,7 +113,7 @@ export const Card = ({ proposalData }: { proposalData: ProposalItemType | Propos
   );
 };
 
-const CardFrame = () => {
+export const CardFrame = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

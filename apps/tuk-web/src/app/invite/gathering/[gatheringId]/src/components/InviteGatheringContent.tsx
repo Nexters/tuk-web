@@ -2,7 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 import { gatheringAPIService } from '@/app/invite/gathering/[gatheringId]/src/service';
-import { InviteCard } from '@/app/invite/meet/[meetId]/src/components/InviteProposal';
+import { CardFrame } from '@/app/proposal/[proposalId]/detail/components/GatheringProposalContent';
 import AppInstallBanner from '@/shared/components/AppInstallBanner';
 import { useParam } from '@/shared/hooks/useParam';
 import { cn } from '@/shared/lib';
@@ -13,7 +13,7 @@ const BANNER_RESHOW_MINUTES = 30;
 const InviteGatheringContent = () => {
   const gatheringId = Number(useParam('gatheringId'));
 
-  const { data } = useSuspenseQuery({
+  const { data: proposalDetail } = useSuspenseQuery({
     queryKey: ['getGatheringName', gatheringId],
     queryFn: () => gatheringAPIService.getGatheringName(gatheringId),
   });
@@ -55,18 +55,24 @@ const InviteGatheringContent = () => {
         참여하시겠어요?
       </h2>
 
-      <div className="relative mt-12 flex justify-center">
-        <div className="relative mt-6 h-[300px] w-[260px] rounded-[10px] border border-black-default/5 bg-[#f0f1f3]">
-          <h3 className="serif-body-20-R mt-[50px] text-center">{data?.data.gatheringName}</h3>
+      <div className="relative mt-[70px] flex flex-col items-center justify-center">
+        <div className="h-[320px] w-[278px] rounded-[10px] bg-gray-50" />
+        <div
+          className={cn(
+            'absolute bottom-[-80px] left-1/2 h-[421px] w-[408px] -translate-x-1/2 translate-y-0'
+          )}
+        >
+          <div className="relative size-full">
+            <div className="absolute inset-0 z-0">
+              <CardFrame />
+            </div>
 
-          <div className="absolute bottom-0 left-0 flex w-full justify-between px-4 pb-4">
-            <p className="serif-body-12-R text-gray-500">연락이</p>
-            <p className="serif-body-12-R text-gray-500">뜸해진 우리</p>
+            {proposalDetail.data.gatheringName && (
+              <div className="serif-body-16-M absolute left-1/2 top-[180px] z-[1] -translate-x-1/2 text-center text-gray-900">
+                {proposalDetail.data.gatheringName}
+              </div>
+            )}
           </div>
-        </div>
-
-        <div className="absolute left-1/2 top-0 -translate-x-1/2">
-          <InviteCard />
         </div>
       </div>
     </>
