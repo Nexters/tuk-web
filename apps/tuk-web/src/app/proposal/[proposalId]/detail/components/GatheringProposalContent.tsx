@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { ProposalItemType } from '@/app/gathering/[gatheringId]/invites/src/service/schema/get-gathering-proposals.schema';
 import { QuoteIcon } from '@/app/invite/meet/[meetId]/src/components/InviteProposal';
 import { proposalAPIService } from '@/app/invite/meet/[meetId]/src/service';
+import { ProposalDetailType } from '@/app/invite/meet/[meetId]/src/service/schema/get-proposal-detail.schema';
 import { CloseIcon32, Header } from '@/shared/components';
 import { useAppBridge } from '@/shared/components/provider/AppBridgeProvider';
 import { useParam } from '@/shared/hooks/useParam';
@@ -86,7 +87,7 @@ const GatheringProposalContent = () => {
 
 export default GatheringProposalContent;
 
-export const Card = ({ proposalData }: { proposalData: ProposalItemType }) => {
+export const Card = ({ proposalData }: { proposalData: ProposalItemType | ProposalDetailType }) => {
   const purposeLines = (proposalData.purpose ?? '').split('\n').filter(Boolean).slice(0, 3);
 
   return (

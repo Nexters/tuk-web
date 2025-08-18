@@ -1,9 +1,10 @@
 import { ProposalItemType } from '@/app/gathering/[gatheringId]/invites/src/service/schema/get-gathering-proposals.schema';
 import { QuoteIcon } from '@/app/invite/meet/[meetId]/src/components/InviteProposal';
+import { ProposalDetailType } from '@/app/invite/meet/[meetId]/src/service/schema/get-proposal-detail.schema';
 import { cn } from '@/shared/lib';
 
 interface InviteCardFrameProps {
-  proposal?: ProposalItemType;
+  proposal?: ProposalItemType | ProposalDetailType;
   animateCardIn?: boolean;
 }
 
@@ -36,11 +37,16 @@ const InviteCardFrame = ({ proposal, animateCardIn }: InviteCardFrameProps) => {
             되지 않아 친구들에게
           </p>
         ) : (
-          <p className="serif-body-14-R text-right text-gray-800">
-            {proposal!.gatheringName}
-            <br />
-            친구들에게
-          </p>
+          // eslint-disable-next-line react/jsx-no-useless-fragment
+          <>
+            {proposal.gatheringName && (
+              <p className="serif-body-14-R text-right text-gray-800">
+                {proposal!.gatheringName}
+                <br />
+                친구들에게
+              </p>
+            )}
+          </>
         )}
       </div>
 
