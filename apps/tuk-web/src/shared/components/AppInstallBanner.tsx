@@ -2,7 +2,7 @@ import { CloseIcon24 } from '@/shared/components/icon';
 
 const AppInstallBanner = ({ onClose }: { onClose: () => void }) => {
   return (
-    <div className="fixed left-0 top-0 z-20 flex h-20 w-full items-center justify-between bg-black-default p-5 text-white-default">
+    <div className="fixed left-1/2 top-0 z-20 flex h-20 w-full max-w-[600px] -translate-x-1/2 items-center justify-between bg-black-default p-5 text-white-default">
       <div className="flex items-center gap-2">
         <button onClick={onClose}>
           <CloseIcon24 />
