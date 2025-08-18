@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react';
 import { ProposalItemType } from '@/app/gathering/[gatheringId]/invites/src/service/schema/get-gathering-proposals.schema';
 import { QuoteIcon } from '@/app/invite/meet/[meetId]/src/components/InviteProposal';
 import { proposalAPIService } from '@/app/invite/meet/[meetId]/src/service';
-import { CloseIcon32, Header } from '@/shared/components';
+import { ProposalDetailType } from '@/app/invite/meet/[meetId]/src/service/schema/get-proposal-detail.schema';
+import { BackgroundTemplate, CloseIcon32, Header } from '@/shared/components';
 import { useAppBridge } from '@/shared/components/provider/AppBridgeProvider';
 import { useParam } from '@/shared/hooks/useParam';
 import { AppBridgeMessageType, cn } from '@/shared/lib';
@@ -35,58 +36,60 @@ const GatheringProposalContent = () => {
   }, [isLoading, isError]);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
-      <div className="absolute left-[-259px] top-[244px] z-0 h-[406px] w-[898px] bg-gradient-to-b from-[#FFA098] via-[#FFAC85] to-[#FFFEFE] blur-[100px]" />
+    <BackgroundTemplate>
+      <BackgroundTemplate.Main>
+        <BackgroundTemplate.Gradient />
 
-      <Header className="bg-transparent">
-        <Header.Left />
-        <Header.Right
-          onClick={() => send({ type: AppBridgeMessageType.NAVIGATE_BACK, payload: '' })}
-        >
-          <Header.Button>
-            <CloseIcon32 />
-          </Header.Button>
-        </Header.Right>
-      </Header>
+        <Header className="bg-transparent">
+          <Header.Left />
+          <Header.Right
+            onClick={() => send({ type: AppBridgeMessageType.NAVIGATE_BACK, payload: '' })}
+          >
+            <Header.Button>
+              <CloseIcon32 />
+            </Header.Button>
+          </Header.Right>
+        </Header>
 
-      <h2 className="serif-title-24-M px-5 text-[#222222]">
-        보고싶은 마음이
-        <br />
-        도착했어요
-      </h2>
+        <h2 className="serif-title-24-M px-5 text-[#222222]">
+          보고싶은 마음이
+          <br />
+          도착했어요
+        </h2>
 
-      <div className="relative mt-[70px] flex flex-col items-center justify-center">
-        <div className="flex justify-center">
-          <Card proposalData={proposalDetail.data} />
-        </div>
+        <div className="relative mt-[70px] flex flex-col items-center justify-center">
+          <div className="flex justify-center">
+            <Card proposalData={proposalDetail.data} />
+          </div>
 
-        <div
-          className={cn(
-            'ease-outmotion-reduce:transition-none absolute bottom-[-100px] left-1/2 h-[421px] w-[408px] -translate-x-1/2 transition-transform duration-1000',
-            slideDown ? 'translate-y-52' : 'translate-y-0'
-          )}
-          style={{ willChange: 'transform', transitionDelay: '150ms' }}
-        >
-          <div className="relative size-full">
-            <div className="absolute inset-0 z-0">
-              <CardFrame />
-            </div>
+          <div
+            className={cn(
+              'ease-outmotion-reduce:transition-none absolute bottom-[-100px] left-1/2 h-[421px] w-[408px] -translate-x-1/2 transition-transform duration-1000',
+              slideDown ? 'translate-y-52' : 'translate-y-0'
+            )}
+            style={{ willChange: 'transform', transitionDelay: '150ms' }}
+          >
+            <div className="relative size-full">
+              <div className="absolute inset-0 z-0">
+                <CardFrame />
+              </div>
 
-            <div className="serif-body-16-M absolute bottom-[100px] left-1/2 z-[1] -translate-x-1/2 text-center text-gray-900">
-              {proposalDetail.data.gatheringName}
-              <br />
-              친구들에게
+              <div className="serif-body-16-M absolute bottom-[100px] left-1/2 z-[1] -translate-x-1/2 text-center text-gray-900">
+                {proposalDetail.data.gatheringName}
+                <br />
+                친구들에게
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </BackgroundTemplate.Main>
+    </BackgroundTemplate>
   );
 };
 
 export default GatheringProposalContent;
 
-export const Card = ({ proposalData }: { proposalData: ProposalItemType }) => {
+export const Card = ({ proposalData }: { proposalData: ProposalItemType | ProposalDetailType }) => {
   const purposeLines = (proposalData.purpose ?? '').split('\n').filter(Boolean).slice(0, 3);
 
   return (
@@ -110,7 +113,7 @@ export const Card = ({ proposalData }: { proposalData: ProposalItemType }) => {
   );
 };
 
-const CardFrame = () => {
+export const CardFrame = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
