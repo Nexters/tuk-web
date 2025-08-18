@@ -6,7 +6,7 @@ export const Header = ({ children, className }: HTMLAttributes<HTMLHeadElement>)
   return (
     <header
       className={cn(
-        'sticky top-0 z-20 flex h-16 items-center justify-between bg-white-default px-5 py-4',
+        'pt-safe sticky top-0 z-20 flex min-h-16 items-center justify-between bg-white-default px-5 py-4',
         className
       )}
     >
