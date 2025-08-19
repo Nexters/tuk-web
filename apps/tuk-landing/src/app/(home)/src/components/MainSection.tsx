@@ -9,6 +9,22 @@ import { cn } from '@/shared/lib';
 const MainSection = () => {
   const { ref, activeIndex } = useSequentialFadeIn(2, 300);
 
+  const handleMobileDownload = () => {
+    if (typeof navigator === 'undefined') {
+      window.location.href = 'https://tuk.kr';
+      return;
+    }
+
+    const ua = navigator.userAgent.toLowerCase();
+    const isAndroid = ua.includes('android');
+
+    if (isAndroid) {
+      window.location.href = 'https://play.google.com/store/apps/details?id=com.plottwist.tuk';
+    } else {
+      window.location.href = 'https://tuk.kr';
+    }
+  };
+
   return (
     <section
       id="thumbnail"
@@ -50,14 +66,14 @@ const MainSection = () => {
         >
           <div className="flex gap-3 max-[880px]:hidden">
             <Link
-              href="/"
+              href="#"
               className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
             >
               <Image src="/app-store.webp" alt="App Store" width={24} height={24} priority />
               App Store
             </Link>
             <Link
-              href="/"
+              href="https://play.google.com/store/apps/details?id=com.plottwist.tuk"
               className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
             >
               <Image src="/play-store.webp" alt="Google Play" width={24} height={24} priority />
@@ -66,12 +82,13 @@ const MainSection = () => {
           </div>
 
           <div className="mb-[85px] min-[881px]:hidden">
-            <Link
-              href="/"
+            <button
+              type="button"
+              onClick={handleMobileDownload}
               className="flex h-[52px] w-[153px] cursor-pointer items-center justify-center rounded-[36px] bg-white-default text-center font-bold text-[rgba(58,58,58,0.9)]"
             >
               앱 다운로드
-            </Link>
+            </button>
           </div>
         </div>
       </div>
