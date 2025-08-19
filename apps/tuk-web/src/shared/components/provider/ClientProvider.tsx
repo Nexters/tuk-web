@@ -8,9 +8,7 @@ import { UserAgentProvider } from '@/shared/components/provider/UserAgentProvide
 export default function ClientProvider({ children }: { children: ReactNode }) {
   return (
     <UserAgentProvider>
-      <AppBridgeProvider>
-        <div className="mx-auto max-w-[600px]">{children}</div>
-      </AppBridgeProvider>
+      <AppBridgeProvider>{children}</AppBridgeProvider>
     </UserAgentProvider>
   );
 }
