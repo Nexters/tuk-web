@@ -57,7 +57,7 @@ const Footer = () => {
               App Store
             </Link>
             <Link
-              href="/"
+              href="https://play.google.com/store/apps/details?id=com.plottwist.tuk"
               className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
             >
               <Image src="/play-store.webp" alt="playStoreImg" width={24} height={24} />
@@ -96,15 +96,23 @@ const Footer = () => {
         <div className="mt-5 flex items-end justify-between">
           <div>
             <div className="flex flex-wrap items-center text-[11px] font-bold leading-5 text-[rgb(58,58,58)]">
-              <Link href="/">서비스 이용약관</Link>
+              <Link href="https://tuk.kr/service-policy" target="_blank">
+                서비스 이용약관
+              </Link>
               <div className="mx-1.5 h-2 w-px bg-[rgb(58,58,58)]" />
-              <Link href="/">개인정보 처리방침</Link>
+              <Link href="https://tuk.kr/privacy-policy" target="_blank">
+                개인정보 처리방침
+              </Link>
+              <div className="mx-1.5 h-2 w-px bg-[rgb(58,58,58)]" />
+              <Link href="https://forms.gle/BBAQeiuYZUo7CHQv6" target="_blank">
+                문의하기
+              </Link>
             </div>
           </div>
         </div>
 
         <div className="mb-1.5 mt-5 text-[11px] font-medium leading-[17px] text-[rgba(58,58,58,0.5)]">
-          ⓒ 2025. (주)Tuk Co., Ltd. All rights reserved.
+          ⓒ 2025. (주)Tuk Co. Ltd. All rights reserved.
         </div>
       </footer>
 
