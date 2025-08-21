@@ -63,7 +63,7 @@ const InviteProposalContent = () => {
       <h2
         className={cn(
           'serif-title-22-M font-bold text-gray-900',
-          showBanner ? 'mt-[6.875rem]' : 'mt-[1.875rem]'
+          showBanner ? 'mt-[4.125rem]' : 'mt-[1.875rem]'
         )}
       >
         보고 싶은 마음이
