@@ -7,8 +7,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import InviteProposalContent from '@/app/invite/meet/[meetId]/src/components/InviteProposalContent';
 import InviteProposalErrorFallback from '@/app/invite/meet/[meetId]/src/components/InviteProposalErrorFallback';
 import InviteProposalSkeleton from '@/app/invite/meet/[meetId]/src/components/InviteProposalSkeleton';
-import SkeletonGuard from '@/app/invite/meet/[meetId]/src/components/SkeletonGuard';
 import { BackgroundTemplate, Button } from '@/shared/components';
+import SkeletonGuard from '@/shared/components/SkeletonGuard';
 import { useParam } from '@/shared/hooks/useParam';
 
 const InviteProposal = () => {
@@ -16,14 +16,14 @@ const InviteProposal = () => {
 
   return (
     <BackgroundTemplate>
-      <BackgroundTemplate.Main className="overflow-y-auto px-5">
-        <BackgroundTemplate.Gradient />
+      <BackgroundTemplate.Main className="px-5">
+        <BackgroundTemplate.Gradient className="pointer-events-none" />
 
         <QueryErrorResetBoundary>
           {({ reset }) => (
             <ErrorBoundary onReset={reset} FallbackComponent={InviteProposalErrorFallback}>
               <SkeletonGuard minMs={250} skeleton={<InviteProposalSkeleton />}>
-                <Suspense fallback={<InviteProposalSkeleton />}>
+                <Suspense fallback={null}>
                   <InviteProposalContent />
                 </Suspense>
               </SkeletonGuard>

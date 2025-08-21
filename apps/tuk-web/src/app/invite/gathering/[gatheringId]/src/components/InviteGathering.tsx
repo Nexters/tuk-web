@@ -7,8 +7,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import InviteGatheringContent from '@/app/invite/gathering/[gatheringId]/src/components/InviteGatheringContent';
 import InviteGatheringErrorFallback from '@/app/invite/gathering/[gatheringId]/src/components/InviteGatheringErrorFallback';
 import InviteGatheringSkeleton from '@/app/invite/gathering/[gatheringId]/src/components/InviteGatheringSkeleton';
-import SkeletonGuard from '@/app/invite/meet/[meetId]/src/components/SkeletonGuard';
 import { BackgroundTemplate, Button } from '@/shared/components';
+import SkeletonGuard from '@/shared/components/SkeletonGuard';
 import { useParam } from '@/shared/hooks/useParam';
 import { cn } from '@/shared/lib';
 

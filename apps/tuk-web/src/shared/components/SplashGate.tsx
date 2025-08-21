@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 import { cn } from '@/shared/lib';
 
@@ -12,6 +12,13 @@ type SplashGateProps = {
   fadeMs?: number;
   children: React.ReactNode;
 };
+
+type SplashGateContextValue = {
+  done: boolean;
+};
+
+const SplashGateContext = createContext<SplashGateContextValue>({ done: false });
+export const useSplashGate = () => useContext(SplashGateContext);
 
 export default function SplashGate({
   minMs = 1000,
@@ -38,8 +45,10 @@ export default function SplashGate({
     return () => clearTimeout(t);
   }, [minMs, fadeMs]);
 
+  const ctx = useMemo(() => ({ done: !show }), [show]);
+
   return (
-    <>
+    <SplashGateContext.Provider value={ctx}>
       {children}
 
       {show && (
@@ -55,6 +64,6 @@ export default function SplashGate({
           <Image src={logoSrc} alt="App Logo" width={logoSize} height={logoSize} priority />
         </div>
       )}
-    </>
+    </SplashGateContext.Provider>
   );
 }
