@@ -23,7 +23,7 @@ const InviteGathering = () => {
           {({ reset }) => (
             <ErrorBoundary onReset={reset} FallbackComponent={InviteGatheringErrorFallback}>
               <SkeletonGuard minMs={250} skeleton={<InviteGatheringSkeleton />}>
-                <Suspense fallback={<InviteGatheringSkeleton />}>
+                <Suspense fallback={null}>
                   <InviteGatheringContent />
                 </Suspense>
               </SkeletonGuard>

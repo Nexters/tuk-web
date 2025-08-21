@@ -1,6 +1,6 @@
 const InviteGatheringSkeleton = () => {
   return (
-    <div className="mt-12 flex flex-col items-center justify-center">
+    <div className="mt-[200px] flex flex-col items-center justify-center">
       <div
         className="relative h-[321px] w-[288px] animate-pulse overflow-hidden rounded-[0.625rem] bg-[#f0f1f3] px-4 py-3"
         aria-busy="true"
@@ -27,8 +27,6 @@ const InviteGatheringSkeleton = () => {
           <div className="h-3 w-10 rounded bg-gray-200" />
           <div className="h-3 w-16 rounded bg-gray-200" />
         </div>
-
-        <div className="pointer-events-none absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.3)] to-transparent" />
       </div>
     </div>
   );
