@@ -21,7 +21,8 @@ const MainSection = () => {
     if (isAndroid) {
       window.location.href = 'https://play.google.com/store/apps/details?id=com.plottwist.tuk';
     } else {
-      window.location.href = 'https://tuk.kr';
+      window.location.href =
+        'https://apps.apple.com/kr/app/%ED%88%AD-%EB%A7%8C%EB%82%A8%EC%9D%84-%EB%84%8C%EC%A7%80%EC%8B%9C/id6749781762';
     }
   };
 
@@ -66,7 +67,7 @@ const MainSection = () => {
         >
           <div className="flex gap-3 max-[880px]:hidden">
             <Link
-              href="#"
+              href="https://apps.apple.com/kr/app/%ED%88%AD-%EB%A7%8C%EB%82%A8%EC%9D%84-%EB%84%8C%EC%A7%80%EC%8B%9C/id6749781762"
               className="flex h-[3.625rem] w-[10.75rem] cursor-pointer items-center justify-center gap-2 rounded-xl border-[1.5px] border-white-default/20 bg-black-default/30 text-sm font-bold text-white-default"
             >
               <Image src="/app-store.webp" alt="App Store" width={24} height={24} priority />
