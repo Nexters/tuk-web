@@ -6,7 +6,25 @@ import { useEffect, useRef, useState } from 'react';
 
 const Footer = () => {
   const footerRef = useRef<HTMLDivElement | null>(null);
+
   const [inView, setInView] = useState(false);
+
+  const handleMobileDownload = () => {
+    if (typeof navigator === 'undefined') {
+      window.location.href = 'https://tuk.kr';
+      return;
+    }
+
+    const ua = navigator.userAgent.toLowerCase();
+    const isAndroid = ua.includes('android');
+
+    if (isAndroid) {
+      window.location.href = 'https://play.google.com/store/apps/details?id=com.plottwist.tuk';
+    } else {
+      window.location.href =
+        'https://apps.apple.com/kr/app/%ED%88%AD-%EB%A7%8C%EB%82%A8%EC%9D%84-%EB%84%8C%EC%A7%80%EC%8B%9C/id6749781762';
+    }
+  };
 
   useEffect(() => {
     if (!footerRef.current) return;
@@ -66,12 +84,12 @@ const Footer = () => {
           </div>
 
           <div className="min-[881px]:hidden">
-            <Link
-              href="/"
+            <button
+              onClick={handleMobileDownload}
               className="flex h-[52px] w-[153px] cursor-pointer items-center justify-center rounded-[36px] bg-white-default text-center font-bold text-[rgba(58,58,58,0.9)]"
             >
               앱 다운로드
-            </Link>
+            </button>
           </div>
         </div>
       </div>
