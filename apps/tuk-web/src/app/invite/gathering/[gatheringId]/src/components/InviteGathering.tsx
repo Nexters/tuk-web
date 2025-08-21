@@ -10,7 +10,6 @@ import InviteGatheringSkeleton from '@/app/invite/gathering/[gatheringId]/src/co
 import { BackgroundTemplate, Button } from '@/shared/components';
 import SkeletonGuard from '@/shared/components/SkeletonGuard';
 import { useParam } from '@/shared/hooks/useParam';
-import { cn } from '@/shared/lib';
 
 const InviteGathering = () => {
   const gatheringId = Number(useParam('gatheringId'));
@@ -20,26 +19,18 @@ const InviteGathering = () => {
       <BackgroundTemplate.Main className="px-5">
         <BackgroundTemplate.Gradient className="pointer-events-none" />
 
-        <div
-          className={cn(
-            'relative z-10 mx-auto w-full max-w-[600px]',
-            'min-h-[100svh]',
-            'overflow-y-auto [-webkit-overflow-scrolling:touch]',
-            'pb-[calc(120px+env(safe-area-inset-bottom,0px))]'
+        <QueryErrorResetBoundary>
+          {({ reset }) => (
+            <ErrorBoundary onReset={reset} FallbackComponent={InviteGatheringErrorFallback}>
+              <SkeletonGuard minMs={250} skeleton={<InviteGatheringSkeleton />}>
+                <Suspense fallback={null}>
+                  <InviteGatheringContent />
+                </Suspense>
+              </SkeletonGuard>
+            </ErrorBoundary>
           )}
-        >
-          <QueryErrorResetBoundary>
-            {({ reset }) => (
-              <ErrorBoundary onReset={reset} FallbackComponent={InviteGatheringErrorFallback}>
-                <SkeletonGuard minMs={250} skeleton={<InviteGatheringSkeleton />}>
-                  <Suspense fallback={null}>
-                    <InviteGatheringContent />
-                  </Suspense>
-                </SkeletonGuard>
-              </ErrorBoundary>
-            )}
-          </QueryErrorResetBoundary>
-        </div>
+        </QueryErrorResetBoundary>
+
         <BackgroundTemplate.CTA>
           <Button
             className="w-full"
