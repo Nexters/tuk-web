@@ -7,6 +7,7 @@ import {
   CardFrame,
 } from '@/app/proposal/[proposalId]/detail/components/GatheringProposalContent';
 import AppInstallBanner from '@/shared/components/AppInstallBanner';
+import { useSplashGate } from '@/shared/components/SplashGate';
 import { useParam } from '@/shared/hooks/useParam';
 import { cn } from '@/shared/lib';
 
@@ -15,6 +16,8 @@ const BANNER_RESHOW_MINUTES = 30;
 
 const InviteProposalContent = () => {
   const proposalId = Number(useParam('meetId'));
+
+  const { done: splashDone } = useSplashGate();
 
   const [slideDown, setSlideDown] = useState(false);
 
@@ -50,11 +53,11 @@ const InviteProposalContent = () => {
   }, []);
 
   useEffect(() => {
-    if (!isLoading && !isError) {
+    if (splashDone && !isLoading && !isError) {
       const id = requestAnimationFrame(() => setSlideDown(true));
       return () => cancelAnimationFrame(id);
     }
-  }, [isLoading, isError]);
+  }, [splashDone, isLoading, isError]);
 
   return (
     <>
@@ -63,7 +66,7 @@ const InviteProposalContent = () => {
       <h2
         className={cn(
           'serif-title-22-M font-bold text-gray-900',
-          showBanner ? 'mt-[6.875rem]' : 'mt-[1.875rem]'
+          showBanner ? 'mt-[calc(70px+env(safe-area-inset-top,0px))]' : 'mt-[1.875rem]'
         )}
       >
         보고 싶은 마음이
@@ -78,8 +81,8 @@ const InviteProposalContent = () => {
 
         <div
           className={cn(
-            'ease-outmotion-reduce:transition-none absolute bottom-[-100px] left-1/2 h-[421px] w-[408px] -translate-x-1/2 transition-transform duration-1000',
-            slideDown ? 'translate-y-52' : 'translate-y-0'
+            'ease-outmotion-reduce:transition-none absolute bottom-[-80px] left-1/2 h-[421px] w-[408px] -translate-x-1/2 transition-transform duration-1000',
+            slideDown ? 'translate-y-56' : 'translate-y-0'
           )}
           style={{ willChange: 'transform', transitionDelay: '150ms' }}
         >

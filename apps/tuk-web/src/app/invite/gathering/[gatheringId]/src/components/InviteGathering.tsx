@@ -7,8 +7,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import InviteGatheringContent from '@/app/invite/gathering/[gatheringId]/src/components/InviteGatheringContent';
 import InviteGatheringErrorFallback from '@/app/invite/gathering/[gatheringId]/src/components/InviteGatheringErrorFallback';
 import InviteGatheringSkeleton from '@/app/invite/gathering/[gatheringId]/src/components/InviteGatheringSkeleton';
-import SkeletonGuard from '@/app/invite/meet/[meetId]/src/components/SkeletonGuard';
 import { BackgroundTemplate, Button } from '@/shared/components';
+import SkeletonGuard from '@/shared/components/SkeletonGuard';
 import { useParam } from '@/shared/hooks/useParam';
 
 const InviteGathering = () => {
@@ -16,14 +16,14 @@ const InviteGathering = () => {
 
   return (
     <BackgroundTemplate>
-      <BackgroundTemplate.Main className="overflow-y-auto px-5">
-        <BackgroundTemplate.Gradient />
+      <BackgroundTemplate.Main className="px-5">
+        <BackgroundTemplate.Gradient className="pointer-events-none" />
 
         <QueryErrorResetBoundary>
           {({ reset }) => (
             <ErrorBoundary onReset={reset} FallbackComponent={InviteGatheringErrorFallback}>
               <SkeletonGuard minMs={250} skeleton={<InviteGatheringSkeleton />}>
-                <Suspense fallback={<InviteGatheringSkeleton />}>
+                <Suspense fallback={null}>
                   <InviteGatheringContent />
                 </Suspense>
               </SkeletonGuard>
