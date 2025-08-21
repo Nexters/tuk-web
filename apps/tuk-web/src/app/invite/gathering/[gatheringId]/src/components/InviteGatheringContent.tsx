@@ -1,3 +1,5 @@
+'use client';
+
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
@@ -18,7 +20,7 @@ const InviteGatheringContent = () => {
     queryFn: () => gatheringAPIService.getGatheringName(gatheringId),
   });
 
-  const [showBanner, setShowBanner] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
 
   const handleCloseBanner = () => {
     localStorage.setItem(BANNER_KEY, Date.now().toString());
@@ -28,7 +30,6 @@ const InviteGatheringContent = () => {
   useEffect(() => {
     const dismissedAt = localStorage.getItem(BANNER_KEY);
     const now = Date.now();
-
     if (!dismissedAt) {
       setShowBanner(true);
     } else {
@@ -47,7 +48,7 @@ const InviteGatheringContent = () => {
       <h2
         className={cn(
           'serif-title-22-M font-bold text-gray-900',
-          showBanner ? 'mt-[6.875rem]' : 'mt-[1.875rem]'
+          showBanner ? 'mt-[calc(70px+env(safe-area-inset-top,0px))]' : 'mt-[1.875rem]'
         )}
       >
         모임에
@@ -55,13 +56,10 @@ const InviteGatheringContent = () => {
         참여하시겠어요?
       </h2>
 
-      <div className="relative mt-[70px] flex flex-col items-center justify-center">
+      <div className="relative mt-[56px] flex flex-col items-center justify-center">
         <div className="h-[320px] w-[278px] rounded-[10px] bg-gray-50" />
-        <div
-          className={cn(
-            'absolute bottom-[-80px] left-1/2 h-[421px] w-[408px] -translate-x-1/2 translate-y-0'
-          )}
-        >
+
+        <div className="pointer-events-none absolute bottom-[-80px] left-1/2 h-[421px] w-[408px] -translate-x-1/2">
           <div className="relative size-full">
             <div className="absolute inset-0 z-0">
               <CardFrame />

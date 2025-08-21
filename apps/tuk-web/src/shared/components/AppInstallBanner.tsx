@@ -1,10 +1,12 @@
+'use client';
+
 import { CloseIcon24 } from '@/shared/components/icon';
 
 const AppInstallBanner = ({ onClose }: { onClose: () => void }) => {
   return (
-    <div className="fixed left-1/2 top-0 z-20 flex h-14 w-full max-w-[600px] -translate-x-1/2 items-center justify-between bg-gray-50 px-5 text-black-default">
+    <div className="fixed left-1/2 top-0 z-20 flex h-[calc(56px+env(safe-area-inset-top))] w-full max-w-[600px] -translate-x-1/2 items-center justify-between bg-gray-50 px-5 pt-[max(0px,env(safe-area-inset-top))] text-black-default shadow-[0_1px_0_0_rgba(0,0,0,0.04)] backdrop-blur-[2px]">
       <div className="flex items-center gap-2">
-        <button onClick={onClose}>
+        <button onClick={onClose} aria-label="배너 닫기">
           <CloseIcon24 />
         </button>
         <div className="flex items-center gap-2">

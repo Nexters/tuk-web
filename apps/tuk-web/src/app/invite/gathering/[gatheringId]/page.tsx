@@ -1,5 +1,5 @@
 import InviteGathering from '@/app/invite/gathering/[gatheringId]/src/components/InviteGathering';
-import SplashGate from '@/app/invite/gathering/[gatheringId]/src/components/SplashGate';
+import SplashGate from '@/shared/components/SplashGate';
 
 export default async function InviteGatheringPage() {
   return (
