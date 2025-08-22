@@ -19,9 +19,9 @@ const InviteProposalContent = () => {
 
   const { done: splashDone } = useSplashGate();
 
-  const [slideDown, setSlideDown] = useState(false);
-
   const [showBanner, setShowBanner] = useState(false);
+
+  const [slideStage, setSlideStage] = useState<0 | 1 | 2>(0);
 
   const {
     data: proposalDetail,
@@ -54,10 +54,27 @@ const InviteProposalContent = () => {
 
   useEffect(() => {
     if (splashDone && !isLoading && !isError) {
-      const id = requestAnimationFrame(() => setSlideDown(true));
-      return () => cancelAnimationFrame(id);
+      let rafId = 0;
+      let tId: ReturnType<typeof setTimeout> | null = null;
+
+      rafId = requestAnimationFrame(() => {
+        setSlideStage(1);
+        tId = setTimeout(() => setSlideStage(2), 1000);
+      });
+
+      return () => {
+        cancelAnimationFrame(rafId);
+        if (tId) clearTimeout(tId);
+      };
     }
   }, [splashDone, isLoading, isError]);
+
+  const slideClass =
+    slideStage === 0
+      ? 'translate-y-0 duration-0'
+      : slideStage === 1
+        ? 'translate-y-[92px] duration-500'
+        : 'translate-y-56 duration-500';
 
   return (
     <>
@@ -81,8 +98,8 @@ const InviteProposalContent = () => {
 
         <div
           className={cn(
-            'ease-outmotion-reduce:transition-none absolute bottom-[-80px] left-1/2 h-[421px] w-[408px] -translate-x-1/2 transition-transform duration-1000',
-            slideDown ? 'translate-y-56' : 'translate-y-0'
+            'absolute bottom-[-80px] left-1/2 h-[421px] w-[408px] -translate-x-1/2 transition-transform ease-out motion-reduce:transition-none',
+            slideClass
           )}
           style={{ willChange: 'transform', transitionDelay: '150ms' }}
         >
