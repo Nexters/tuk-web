@@ -8,11 +8,15 @@ import InviteGatheringContent from '@/app/invite/gathering/[gatheringId]/src/com
 import InviteGatheringErrorFallback from '@/app/invite/gathering/[gatheringId]/src/components/InviteGatheringErrorFallback';
 import InviteGatheringSkeleton from '@/app/invite/gathering/[gatheringId]/src/components/InviteGatheringSkeleton';
 import { BackgroundTemplate, Button } from '@/shared/components';
+import { useUserAgent } from '@/shared/components/provider/UserAgentProvider';
 import SkeletonGuard from '@/shared/components/SkeletonGuard';
 import { useParam } from '@/shared/hooks/useParam';
+import { joinGatheringInAPP } from '@/shared/lib/deeplink';
 
 const InviteGathering = () => {
   const gatheringId = Number(useParam('gatheringId'));
+
+  const userAgent = useUserAgent();
 
   return (
     <BackgroundTemplate>
@@ -32,12 +36,7 @@ const InviteGathering = () => {
         </QueryErrorResetBoundary>
 
         <BackgroundTemplate.CTA>
-          <Button
-            className="w-full"
-            onClick={() =>
-              (window.location.href = `tuk-app://tuk/join-gathering?gatheringId=${gatheringId}`)
-            }
-          >
+          <Button className="w-full" onClick={() => joinGatheringInAPP(gatheringId, userAgent)}>
             입장하기
           </Button>
         </BackgroundTemplate.CTA>

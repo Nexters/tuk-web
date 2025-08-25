@@ -8,11 +8,15 @@ import InviteProposalContent from '@/app/invite/meet/[meetId]/src/components/Inv
 import InviteProposalErrorFallback from '@/app/invite/meet/[meetId]/src/components/InviteProposalErrorFallback';
 import InviteProposalSkeleton from '@/app/invite/meet/[meetId]/src/components/InviteProposalSkeleton';
 import { BackgroundTemplate, Button } from '@/shared/components';
+import { useUserAgent } from '@/shared/components/provider/UserAgentProvider';
 import SkeletonGuard from '@/shared/components/SkeletonGuard';
 import { useParam } from '@/shared/hooks/useParam';
+import { joinProposalInAPP } from '@/shared/lib/deeplink';
 
 const InviteProposal = () => {
   const proposalId = Number(useParam('meetId'));
+
+  const userAgent = useUserAgent();
 
   return (
     <BackgroundTemplate>
@@ -32,10 +36,7 @@ const InviteProposal = () => {
         </QueryErrorResetBoundary>
 
         <BackgroundTemplate.CTA>
-          <Button
-            className="w-full"
-            onClick={() => (window.location.href = `tuk-app://tuk/proposal-detail/${proposalId}`)}
-          >
+          <Button className="w-full" onClick={() => joinProposalInAPP(proposalId, userAgent)}>
             초대장 확인하기
           </Button>
         </BackgroundTemplate.CTA>

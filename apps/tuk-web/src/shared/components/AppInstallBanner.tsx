@@ -1,8 +1,12 @@
 'use client';
 
 import { CloseIcon24 } from '@/shared/components/icon';
+import { useUserAgent } from '@/shared/components/provider/UserAgentProvider';
+import { joinHomeInAPP } from '@/shared/lib/deeplink';
 
 const AppInstallBanner = ({ onClose }: { onClose: () => void }) => {
+  const userAgent = useUserAgent();
+
   return (
     <div className="fixed left-1/2 top-0 z-20 flex h-[calc(56px+env(safe-area-inset-top))] w-full max-w-[600px] -translate-x-1/2 items-center justify-between bg-gray-50 px-5 pt-[max(0px,env(safe-area-inset-top))] text-black-default shadow-[0_1px_0_0_rgba(0,0,0,0.04)] backdrop-blur-[2px]">
       <div className="flex items-center gap-2">
@@ -17,7 +21,7 @@ const AppInstallBanner = ({ onClose }: { onClose: () => void }) => {
 
       <button
         className="pretendard-body-12-B rounded-[1.25rem] bg-gray-900 px-2.5 py-2 text-white-default"
-        onClick={() => (window.location.href = 'tuk-app://tuk')}
+        onClick={() => joinHomeInAPP(userAgent)}
       >
         앱 열기
       </button>
